@@ -17,21 +17,27 @@ const departments = [
 ]
 
 const etdStages = [
+  { id: "HOME", name: "Home" },
   { id: "PASSPORT", name: "Passport" },
   { id: "STORE", name: "Store" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" }
+  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "REPORTS", name: "Reports" }
 ]
 
 const armtStages = [
+  { id: "HOME", name: "Home" },
   { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
   { id: "STORE", name: "Store" },
-  { id: "PASSPORT", name: "Passport" }
+  { id: "PASSPORT", name: "Passport" },
+  { id: "REPORTS", name: "Reports" }
 ]
 
 const srdStages = [
+  { id: "HOME", name: "Home" },
   { id: "PASSPORT", name: "Passport" },
   { id: "STORE", name: "Store" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" }
+  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "REPORTS", name: "Reports" }
 ]
 
 export function ERPSidebar({ 

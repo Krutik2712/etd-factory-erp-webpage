@@ -2,29 +2,33 @@
 
 import { useState } from "react"
 import { ERPSidebar } from "@/components/ERPSidebar"
+import { ETDHome } from "@/components/ETDHome"
 import { ETDPassportStage } from "@/components/ETDPassportStage"
 import { ETDStoreStage } from "@/components/ETDStoreStage"
 import { ETDStockStage } from "@/components/ETDStockStage"
+import { ETDReportsStage } from "@/components/ETDReportsStage"
+import { ARMTHome } from "@/components/ARMTHome"
 import { ARMTStockStage } from "@/components/ARMTStockStage"
 import { ARMTStoreStage } from "@/components/ARMTStoreStage"
 import { ARMTPassportStage } from "@/components/ARMTPassportStage"
+import { ARMTReportsStage } from "@/components/ARMTReportsStage"
+import { SRDHome } from "@/components/SRDHome"
 import { SRDPassportStage } from "@/components/SRDPassportStage"
+import { SRDStoreStage } from "@/components/SRDStoreStage"
+import { SRDStockStage } from "@/components/SRDStockStage"
+import { SRDReportsStage } from "@/components/SRDReportsStage"
 import { QAInchargeDashboard } from "@/components/QAInchargeDashboard"
 import { Building2, LayoutDashboard } from "lucide-react"
 
 export default function Home() {
   const [view, setView] = useState<"erp" | "qa">("qa")
   const [selectedDepartment, setSelectedDepartment] = useState("ETD")
-  const [selectedStage, setSelectedStage] = useState("PASSPORT")
+  const [selectedStage, setSelectedStage] = useState("HOME")
 
   const handleDepartmentChange = (dept: string) => {
     setSelectedDepartment(dept)
-    // Set default stage based on department
-    if (dept === "ARMT") {
-      setSelectedStage("STOCK_AVAILABILITY")
-    } else {
-      setSelectedStage("PASSPORT")
-    }
+    // Set default stage to HOME for all departments
+    setSelectedStage("HOME")
   }
 
   return (
@@ -77,6 +81,9 @@ export default function Home() {
           
           <main className="flex-1 overflow-y-auto">
             <div className="container mx-auto p-6">
+              {selectedDepartment === "ETD" && selectedStage === "HOME" && (
+                <ETDHome />
+              )}
               {selectedDepartment === "ETD" && selectedStage === "PASSPORT" && (
                 <ETDPassportStage />
               )}
@@ -85,6 +92,12 @@ export default function Home() {
               )}
               {selectedDepartment === "ETD" && selectedStage === "STOCK_AVAILABILITY" && (
                 <ETDStockStage />
+              )}
+              {selectedDepartment === "ETD" && selectedStage === "REPORTS" && (
+                <ETDReportsStage />
+              )}
+              {selectedDepartment === "ARMT" && selectedStage === "HOME" && (
+                <ARMTHome />
               )}
               {selectedDepartment === "ARMT" && selectedStage === "STOCK_AVAILABILITY" && (
                 <ARMTStockStage />
@@ -95,20 +108,23 @@ export default function Home() {
               {selectedDepartment === "ARMT" && selectedStage === "PASSPORT" && (
                 <ARMTPassportStage />
               )}
+              {selectedDepartment === "ARMT" && selectedStage === "REPORTS" && (
+                <ARMTReportsStage />
+              )}
+              {selectedDepartment === "SRD" && selectedStage === "HOME" && (
+                <SRDHome />
+              )}
               {selectedDepartment === "SRD" && selectedStage === "PASSPORT" && (
                 <SRDPassportStage />
               )}
               {selectedDepartment === "SRD" && selectedStage === "STORE" && (
-                <div className="bg-card p-8 rounded-lg border border-border">
-                  <h2 className="text-2xl font-bold mb-4">SRD - Store Stage</h2>
-                  <p className="text-muted-foreground">SRD Store content will be displayed here</p>
-                </div>
+                <SRDStoreStage />
               )}
               {selectedDepartment === "SRD" && selectedStage === "STOCK_AVAILABILITY" && (
-                <div className="bg-card p-8 rounded-lg border border-border">
-                  <h2 className="text-2xl font-bold mb-4">SRD - Stock Availability Stage</h2>
-                  <p className="text-muted-foreground">SRD Stock Availability content will be displayed here</p>
-                </div>
+                <SRDStockStage />
+              )}
+              {selectedDepartment === "SRD" && selectedStage === "REPORTS" && (
+                <SRDReportsStage />
               )}
             </div>
           </main>
