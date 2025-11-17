@@ -16,7 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Eye } from "lucide-react";
+import { Eye, X } from "lucide-react";
 import { useState } from "react";
 
 interface StoreItem {
@@ -30,6 +30,15 @@ interface StoreItem {
   bal: number;
   ohOssLp: "OH" | "OSS" | "LP";
   drawing: string;
+  quantity: number;
+  serviceable: boolean;
+  specifications: {
+    material: string;
+    dimensions: string;
+    weight: string;
+    finish: string;
+    tolerance: string;
+  };
 }
 
 const sampleData: StoreItem[] = [
@@ -43,7 +52,16 @@ const sampleData: StoreItem[] = [
     rt: 8,
     bal: 3,
     ohOssLp: "OH",
-    drawing: "Drawing-SRD-001-Rev2.pdf"
+    drawing: "Drawing-SRD-001-Rev2.pdf",
+    quantity: 5,
+    serviceable: true,
+    specifications: {
+      material: "Aluminum Alloy 6061",
+      dimensions: "850mm x 650mm x 280mm",
+      weight: "42kg",
+      finish: "Anodized",
+      tolerance: "±0.15mm"
+    }
   },
   {
     srNo: 2,
@@ -55,7 +73,16 @@ const sampleData: StoreItem[] = [
     rt: 6,
     bal: 3,
     ohOssLp: "OSS",
-    drawing: "Drawing-SRD-002-Rev1.pdf"
+    drawing: "Drawing-SRD-002-Rev1.pdf",
+    quantity: 3,
+    serviceable: true,
+    specifications: {
+      material: "FR4 PCB with EMI Shielding",
+      dimensions: "420mm x 320mm x 85mm",
+      weight: "8.5kg",
+      finish: "Conformal Coating",
+      tolerance: "±0.05mm"
+    }
   },
   {
     srNo: 3,
@@ -67,7 +94,16 @@ const sampleData: StoreItem[] = [
     rt: 12,
     bal: 4,
     ohOssLp: "LP",
-    drawing: "Drawing-SRD-003-Rev3.pdf"
+    drawing: "Drawing-SRD-003-Rev3.pdf",
+    quantity: 8,
+    serviceable: false,
+    specifications: {
+      material: "Carbon Fiber Composite",
+      dimensions: "1200mm x 400mm x 120mm",
+      weight: "18kg",
+      finish: "UV Resistant Coating",
+      tolerance: "±0.2mm"
+    }
   },
   {
     srNo: 4,
@@ -79,7 +115,16 @@ const sampleData: StoreItem[] = [
     rt: 7,
     bal: 3,
     ohOssLp: "OH",
-    drawing: "Drawing-SRD-004-Rev2.pdf"
+    drawing: "Drawing-SRD-004-Rev2.pdf",
+    quantity: 4,
+    serviceable: true,
+    specifications: {
+      material: "Copper Alloy C17200",
+      dimensions: "350mm x 280mm x 180mm",
+      weight: "22kg",
+      finish: "Silver Plated",
+      tolerance: "±0.08mm"
+    }
   },
   {
     srNo: 5,
@@ -91,7 +136,16 @@ const sampleData: StoreItem[] = [
     rt: 10,
     bal: 4,
     ohOssLp: "OSS",
-    drawing: "Drawing-SRD-005-Rev1.pdf"
+    drawing: "Drawing-SRD-005-Rev1.pdf",
+    quantity: 6,
+    serviceable: true,
+    specifications: {
+      material: "High-Frequency PCB Material",
+      dimensions: "380mm x 280mm x 45mm",
+      weight: "3.8kg",
+      finish: "Gold Plated Contacts",
+      tolerance: "±0.02mm"
+    }
   },
   {
     srNo: 6,
@@ -103,16 +157,25 @@ const sampleData: StoreItem[] = [
     rt: 10,
     bal: 3,
     ohOssLp: "LP",
-    drawing: "Drawing-SRD-006-Rev4.pdf"
+    drawing: "Drawing-SRD-006-Rev4.pdf",
+    quantity: 7,
+    serviceable: true,
+    specifications: {
+      material: "Stainless Steel 304 Enclosure",
+      dimensions: "550mm x 420mm x 220mm",
+      weight: "35kg",
+      finish: "Powder Coated",
+      tolerance: "±0.1mm"
+    }
   }
 ];
 
 export function SRDStoreStage() {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
-  const [selectedDrawing, setSelectedDrawing] = useState<string>("");
+  const [selectedItem, setSelectedItem] = useState<StoreItem | null>(null);
 
-  const handleViewDrawing = (drawing: string) => {
-    setSelectedDrawing(drawing);
+  const handleViewComponent = (item: StoreItem) => {
+    setSelectedItem(item);
     setViewDialogOpen(true);
   };
 
@@ -176,7 +239,7 @@ export function SRDStoreStage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleViewDrawing(item.drawing)}
+                      onClick={() => handleViewComponent(item)}
                       className="gap-2"
                     >
                       <Eye className="h-4 w-4" />
@@ -190,23 +253,91 @@ export function SRDStoreStage() {
         </CardContent>
       </Card>
 
-      {/* View Drawing Dialog */}
+      {/* Component Details Dialog */}
       <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Drawing Reference</DialogTitle>
+        <DialogContent className="max-w-xl">
+          <DialogHeader className="flex flex-row items-start justify-between">
+            <DialogTitle className="text-xl">Component Details</DialogTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 rounded-full"
+              onClick={() => setViewDialogOpen(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="p-4 bg-muted rounded-lg">
-              <p className="font-mono text-sm">{selectedDrawing}</p>
+          
+          {selectedItem && (
+            <div className="space-y-6 pt-4">
+              {/* Part Info Grid */}
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Part No.</p>
+                  <p className="text-lg font-semibold">{selectedItem.partNo}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Quantity</p>
+                  <p className="text-lg font-semibold">{selectedItem.quantity}</p>
+                </div>
+              </div>
+
+              {/* Nomenclature */}
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Nomenclature</p>
+                <p className="text-lg font-semibold">{selectedItem.nomenclature}</p>
+              </div>
+
+              {/* Serviceable Badge */}
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Serviceable</p>
+                <span
+                  className={`inline-flex items-center px-3 py-1 rounded text-xs font-semibold ${
+                    selectedItem.serviceable
+                      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                      : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
+                  }`}
+                >
+                  {selectedItem.serviceable ? "YES" : "NO"}
+                </span>
+              </div>
+
+              {/* Drawing Reference */}
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Drawing Reference</p>
+                <div className="bg-muted/50 rounded-lg border border-border p-3">
+                  <p className="text-sm font-mono">{selectedItem.drawing}</p>
+                </div>
+              </div>
+
+              {/* Specifications */}
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Specifications</p>
+                <div className="bg-muted/50 rounded-lg border border-border p-4 space-y-2">
+                  <p className="text-sm">
+                    <span className="font-medium">Material:</span> {selectedItem.specifications.material}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Dimensions:</span> {selectedItem.specifications.dimensions}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Weight:</span> {selectedItem.specifications.weight}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Finish:</span> {selectedItem.specifications.finish}
+                  </p>
+                  <p className="text-sm">
+                    <span className="font-medium">Tolerance:</span> {selectedItem.specifications.tolerance}
+                  </p>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <div className="flex justify-end pt-2">
+                <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
+              </div>
             </div>
-            <div className="flex justify-center items-center h-96 bg-muted/50 rounded-lg border-2 border-dashed border-border">
-              <p className="text-muted-foreground">Drawing preview would be displayed here</p>
-            </div>
-            <div className="flex justify-end">
-              <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
-            </div>
-          </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
