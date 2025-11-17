@@ -118,8 +118,8 @@ export function SRDPassportStage() {
             <Input
               id="passportNo"
               value={passportNo}
-              onChange={(e) => setPassportNo(e.target.value)}
-            />
+              onChange={(e) => setPassportNo(e.target.value)} />
+
           </div>
           <div className="space-y-2">
             <Label htmlFor="dateOfIssue">Date of Issue</Label>
@@ -127,17 +127,17 @@ export function SRDPassportStage() {
               id="dateOfIssue"
               type="date"
               value={dateOfIssue}
-              onChange={(e) => setDateOfIssue(e.target.value)}
-            />
+              onChange={(e) => setDateOfIssue(e.target.value)} />
+
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 !w-[3%] !h-5">
             <Label htmlFor="date">Date</Label>
             <Input
               id="date"
               type="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
+              onChange={(e) => setDate(e.target.value)} />
+
           </div>
         </div>
         
