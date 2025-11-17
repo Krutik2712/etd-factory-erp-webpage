@@ -17,7 +17,7 @@ import { FileText } from "lucide-react"
 
 type ReportType = "defect" | "condemnation" | "vir" | "estimation" | ""
 
-export function ETDReportsStage() {
+export function ARMTReportsStage() {
   const [reportType, setReportType] = useState<ReportType>("")
 
   const handleSendForApproval = () => {
@@ -30,7 +30,7 @@ export function ETDReportsStage() {
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
             <FileText className="h-6 w-6" />
-            ETD - Reports
+            ARMT - Reports
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -74,8 +74,8 @@ export function ETDReportsStage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="df-hull-no">Hull No.</Label>
-                <Input id="df-hull-no" placeholder="Enter hull number" />
+                <Label htmlFor="df-weapon-system">Weapon System</Label>
+                <Input id="df-weapon-system" placeholder="Enter weapon system" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="df-part-no">Part No.</Label>
@@ -285,8 +285,8 @@ export function ETDReportsStage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="vir-hull-no">Hull No.</Label>
-                <Input id="vir-hull-no" placeholder="Enter hull number" />
+                <Label htmlFor="vir-weapon-system">Weapon System</Label>
+                <Input id="vir-weapon-system" placeholder="Enter weapon system" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="vir-stage">Stage</Label>
@@ -395,8 +395,8 @@ export function ETDReportsStage() {
                 <Input id="est-project" placeholder="Enter project name" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="est-hull-no">Hull No.</Label>
-                <Input id="est-hull-no" placeholder="Enter hull number" />
+                <Label htmlFor="est-weapon-system">Weapon System</Label>
+                <Input id="est-weapon-system" placeholder="Enter weapon system" />
               </div>
             </div>
 
