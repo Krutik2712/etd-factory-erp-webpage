@@ -14,9 +14,12 @@ import { Home, Users, Clock, AlertCircle } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
-  hullNo: string
+  workOrderType: string
   referenceId: string
   dateOfIssue: string
+  dueDate: string
+  completedOn: string | null
+  delayedBy: number | null
   status: "Completed" | "Ongoing" | "Stopped"
   manPowers: number
   manHours: number
@@ -26,36 +29,48 @@ interface WorkOrder {
 const workOrders: WorkOrder[] = [
   {
     orderNo: "WO-ETD-001",
-    hullNo: "HULL-2024-001",
+    workOrderType: "Hull Assembly",
     referenceId: "REF-ETD-2024-001",
     dateOfIssue: "2024-01-15",
+    dueDate: "2024-02-15",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 12,
     manHours: 240
   },
   {
     orderNo: "WO-ETD-002",
-    hullNo: "HULL-2024-002",
+    workOrderType: "Hull Assembly",
     referenceId: "REF-ETD-2024-002",
     dateOfIssue: "2024-01-16",
+    dueDate: "2024-02-16",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 15,
     manHours: 300
   },
   {
     orderNo: "WO-ETD-003",
-    hullNo: "HULL-2024-003",
+    workOrderType: "Hull Fabrication",
     referenceId: "REF-ETD-2024-003",
     dateOfIssue: "2024-01-14",
+    dueDate: "2024-02-10",
+    completedOn: "2024-02-08",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 10,
     manHours: 200
   },
   {
     orderNo: "WO-ETD-004",
-    hullNo: "HULL-2024-004",
+    workOrderType: "Welding",
     referenceId: "REF-ETD-2024-004",
     dateOfIssue: "2024-01-13",
+    dueDate: "2024-02-01",
+    completedOn: null,
+    delayedBy: 16,
     status: "Stopped",
     manPowers: 8,
     manHours: 160,
@@ -63,9 +78,12 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ETD-005",
-    hullNo: "HULL-2024-005",
+    workOrderType: "Hull Assembly",
     referenceId: "REF-ETD-2024-005",
     dateOfIssue: "2024-01-12",
+    dueDate: "2024-02-05",
+    completedOn: "2024-02-04",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 14,
     manHours: 280
@@ -173,9 +191,12 @@ export function ETDHome() {
             <TableHeader>
               <TableRow>
                 <TableHead>Work Order No.</TableHead>
-                <TableHead>Hull No.</TableHead>
+                <TableHead>Work Order Type</TableHead>
                 <TableHead>Reference ID</TableHead>
                 <TableHead>Date of Issue</TableHead>
+                <TableHead>Due Date</TableHead>
+                <TableHead>Completed On</TableHead>
+                <TableHead>Delayed By</TableHead>
                 <TableHead>Current Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -187,9 +208,12 @@ export function ETDHome() {
                   onClick={() => handleOrderClick(order)}
                 >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
-                  <TableCell>{order.hullNo}</TableCell>
+                  <TableCell>{order.workOrderType}</TableCell>
                   <TableCell>{order.referenceId}</TableCell>
                   <TableCell>{order.dateOfIssue}</TableCell>
+                  <TableCell>{order.dueDate}</TableCell>
+                  <TableCell>{order.completedOn || "-"}</TableCell>
+                  <TableCell>{order.delayedBy !== null ? `${order.delayedBy} days` : "-"}</TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(order.status)}>
                       {order.status}
@@ -240,8 +264,8 @@ export function ETDHome() {
                   <p className="text-lg font-semibold">{selectedOrder.orderNo}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Hull No.</p>
-                  <p className="text-lg font-semibold">{selectedOrder.hullNo}</p>
+                  <p className="text-sm text-muted-foreground">Work Order Type</p>
+                  <p className="text-lg font-semibold">{selectedOrder.workOrderType}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Reference ID</p>
@@ -250,6 +274,18 @@ export function ETDHome() {
                 <div>
                   <p className="text-sm text-muted-foreground">Date of Issue</p>
                   <p className="text-lg font-semibold">{selectedOrder.dateOfIssue}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Due Date</p>
+                  <p className="text-lg font-semibold">{selectedOrder.dueDate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed On</p>
+                  <p className="text-lg font-semibold">{selectedOrder.completedOn || "-"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Delayed By</p>
+                  <p className="text-lg font-semibold">{selectedOrder.delayedBy !== null ? `${selectedOrder.delayedBy} days` : "-"}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Status</p>

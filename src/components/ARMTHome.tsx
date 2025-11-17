@@ -14,10 +14,12 @@ import { Home, Users, Clock, AlertCircle } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
-  weaponSystem: string
-  ptNo: string
-  baNo: string
+  workOrderType: string
+  referenceId: string
   dateOfIssue: string
+  dueDate: string
+  completedOn: string | null
+  delayedBy: number | null
   status: "Completed" | "Ongoing" | "Stopped"
   manPowers: number
   manHours: number
@@ -27,40 +29,48 @@ interface WorkOrder {
 const workOrders: WorkOrder[] = [
   {
     orderNo: "WO-ARMT-001",
-    weaponSystem: "30mm Gun System",
-    ptNo: "PT-2024-001",
-    baNo: "BA-001",
+    workOrderType: "30mm Gun System",
+    referenceId: "PT-2024-001",
     dateOfIssue: "2024-01-15",
+    dueDate: "2024-02-20",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 8,
     manHours: 160
   },
   {
     orderNo: "WO-ARMT-002",
-    weaponSystem: "30mm Gun System",
-    ptNo: "PT-2024-002",
-    baNo: "BA-002",
+    workOrderType: "30mm Gun System",
+    referenceId: "PT-2024-002",
     dateOfIssue: "2024-01-16",
+    dueDate: "2024-02-21",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 10,
     manHours: 200
   },
   {
     orderNo: "WO-ARMT-003",
-    weaponSystem: "30mm Gun System",
-    ptNo: "PT-2024-003",
-    baNo: "BA-003",
+    workOrderType: "30mm Gun System",
+    referenceId: "PT-2024-003",
     dateOfIssue: "2024-01-14",
+    dueDate: "2024-02-12",
+    completedOn: "2024-02-10",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 7,
     manHours: 140
   },
   {
     orderNo: "WO-ARMT-004",
-    weaponSystem: "Missile Launcher",
-    ptNo: "PT-2024-004",
-    baNo: "BA-004",
+    workOrderType: "Missile Launcher",
+    referenceId: "PT-2024-004",
     dateOfIssue: "2024-01-13",
+    dueDate: "2024-02-05",
+    completedOn: null,
+    delayedBy: 12,
     status: "Stopped",
     manPowers: 12,
     manHours: 240,
@@ -68,10 +78,12 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ARMT-005",
-    weaponSystem: "Torpedo System",
-    ptNo: "PT-2024-005",
-    baNo: "BA-005",
+    workOrderType: "Torpedo System",
+    referenceId: "PT-2024-005",
     dateOfIssue: "2024-01-12",
+    dueDate: "2024-02-08",
+    completedOn: "2024-02-07",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 9,
     manHours: 180
@@ -179,10 +191,12 @@ export function ARMTHome() {
             <TableHeader>
               <TableRow>
                 <TableHead>Work Order No.</TableHead>
-                <TableHead>Weapon System</TableHead>
-                <TableHead>PT No.</TableHead>
-                <TableHead>BA No.</TableHead>
+                <TableHead>Work Order Type</TableHead>
+                <TableHead>Reference ID</TableHead>
                 <TableHead>Date of Issue</TableHead>
+                <TableHead>Due Date</TableHead>
+                <TableHead>Completed On</TableHead>
+                <TableHead>Delayed By</TableHead>
                 <TableHead>Current Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -194,10 +208,12 @@ export function ARMTHome() {
                   onClick={() => handleOrderClick(order)}
                 >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
-                  <TableCell>{order.weaponSystem}</TableCell>
-                  <TableCell>{order.ptNo}</TableCell>
-                  <TableCell>{order.baNo}</TableCell>
+                  <TableCell>{order.workOrderType}</TableCell>
+                  <TableCell>{order.referenceId}</TableCell>
                   <TableCell>{order.dateOfIssue}</TableCell>
+                  <TableCell>{order.dueDate}</TableCell>
+                  <TableCell>{order.completedOn || "-"}</TableCell>
+                  <TableCell>{order.delayedBy !== null ? `${order.delayedBy} days` : "-"}</TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(order.status)}>
                       {order.status}
@@ -248,20 +264,28 @@ export function ARMTHome() {
                   <p className="text-lg font-semibold">{selectedOrder.orderNo}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Weapon System</p>
-                  <p className="text-lg font-semibold">{selectedOrder.weaponSystem}</p>
+                  <p className="text-sm text-muted-foreground">Work Order Type</p>
+                  <p className="text-lg font-semibold">{selectedOrder.workOrderType}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">PT No.</p>
-                  <p className="text-lg font-semibold">{selectedOrder.ptNo}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">BA No.</p>
-                  <p className="text-lg font-semibold">{selectedOrder.baNo}</p>
+                  <p className="text-sm text-muted-foreground">Reference ID</p>
+                  <p className="text-lg font-semibold">{selectedOrder.referenceId}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Date of Issue</p>
                   <p className="text-lg font-semibold">{selectedOrder.dateOfIssue}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Due Date</p>
+                  <p className="text-lg font-semibold">{selectedOrder.dueDate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed On</p>
+                  <p className="text-lg font-semibold">{selectedOrder.completedOn || "-"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Delayed By</p>
+                  <p className="text-lg font-semibold">{selectedOrder.delayedBy !== null ? `${selectedOrder.delayedBy} days` : "-"}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Status</p>

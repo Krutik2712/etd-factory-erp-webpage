@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 import { FileText } from "lucide-react"
 
-type ReportType = "defect" | "condemnation" | "vir" | "estimation" | ""
+type ReportType = "defect" | "condemnation" | "vir" | ""
 
 export function ETDReportsStage() {
   const [reportType, setReportType] = useState<ReportType>("")
@@ -44,7 +44,6 @@ export function ETDReportsStage() {
                 <SelectItem value="defect">Defect Report</SelectItem>
                 <SelectItem value="condemnation">Condemnation Report</SelectItem>
                 <SelectItem value="vir">VIR (Viewer's Inspection Report)</SelectItem>
-                <SelectItem value="estimation">Estimation Report</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -356,118 +355,6 @@ export function ETDReportsStage() {
                 id="vir-recommendations" 
                 placeholder="Enter recommendations"
                 rows={3}
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <Button onClick={handleSendForApproval} size="lg">
-                Send for Approval
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {reportType === "estimation" && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Estimation Report</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="est-report-no">Report No.</Label>
-                <Input id="est-report-no" placeholder="Enter report number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-date">Estimation Date</Label>
-                <Input id="est-date" type="date" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-estimator">Estimator Name</Label>
-                <Input id="est-estimator" placeholder="Enter estimator name" />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="est-project">Project/Work Order</Label>
-                <Input id="est-project" placeholder="Enter project name" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-hull-no">Hull No.</Label>
-                <Input id="est-hull-no" placeholder="Enter hull number" />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="est-work-description">Work Description</Label>
-              <Textarea 
-                id="est-work-description" 
-                placeholder="Describe the work to be estimated"
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="est-material-cost">Material Cost Estimation</Label>
-              <Textarea 
-                id="est-material-cost" 
-                placeholder="List materials with estimated costs"
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="est-labor-cost">Labor Cost Estimation</Label>
-              <Textarea 
-                id="est-labor-cost" 
-                placeholder="Enter labor hours and cost breakdown"
-                rows={4}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="est-total-material">Total Material Cost</Label>
-                <Input id="est-total-material" type="number" placeholder="Enter amount" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-total-labor">Total Labor Cost</Label>
-                <Input id="est-total-labor" type="number" placeholder="Enter amount" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-grand-total">Grand Total</Label>
-                <Input id="est-grand-total" type="number" placeholder="Enter total" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="est-duration">Estimated Duration</Label>
-                <Input id="est-duration" placeholder="e.g., 5 days" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="est-validity">Estimate Validity</Label>
-                <Input id="est-validity" placeholder="e.g., 30 days" />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="est-assumptions">Assumptions & Constraints</Label>
-              <Textarea 
-                id="est-assumptions" 
-                placeholder="Enter any assumptions or constraints"
-                rows={3}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="est-remarks">Remarks</Label>
-              <Textarea 
-                id="est-remarks" 
-                placeholder="Additional remarks"
-                rows={2}
               />
             </div>
 
