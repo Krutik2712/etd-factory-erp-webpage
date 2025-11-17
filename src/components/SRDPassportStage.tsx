@@ -99,6 +99,7 @@ export function SRDPassportStage() {
   const [components] = useState<SRDComponent[]>(sampleComponents);
   const [passportNo, setPassportNo] = useState("SRD/Passport/2025-26");
   const [date, setDate] = useState("");
+  const [dateOfIssue, setDateOfIssue] = useState("");
 
   const handleSendForApproval = () => {
     // Logic for sending to approval
@@ -109,6 +110,36 @@ export function SRDPassportStage() {
     <div className="space-y-6">
       <div className="bg-card p-6 rounded-lg border border-border">
         <h2 className="text-2xl font-bold mb-6 text-center !whitespace-pre-line">PASSPORT : SRD </h2>
+        
+        {/* Header Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="space-y-2">
+            <Label htmlFor="passportNo">Passport No.</Label>
+            <Input
+              id="passportNo"
+              value={passportNo}
+              onChange={(e) => setPassportNo(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="dateOfIssue">Date of Issue</Label>
+            <Input
+              id="dateOfIssue"
+              type="date"
+              value={dateOfIssue}
+              onChange={(e) => setDateOfIssue(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="date">Date</Label>
+            <Input
+              id="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+        </div>
         
         {/* Components Table */}
         <div className="border rounded-lg overflow-x-auto mb-6">
@@ -170,32 +201,10 @@ export function SRDPassportStage() {
         </div>
 
         {/* Footer Section */}
-        <div className="mt-6 space-y-4">
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="font-medium">Passport No:</span>
-              <Input
-                value={passportNo}
-                onChange={(e) => setPassportNo(e.target.value)}
-                className="flex-1" />
-
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-medium">Date:</span>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="flex-1" />
-
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <Button onClick={handleSendForApproval} size="lg" className="px-8">
-              Send for Approval
-            </Button>
-          </div>
+        <div className="flex justify-end mt-6">
+          <Button onClick={handleSendForApproval} size="lg" className="px-8">
+            Send for Approval
+          </Button>
         </div>
       </div>
     </div>);

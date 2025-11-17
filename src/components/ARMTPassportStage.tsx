@@ -37,6 +37,7 @@ export function ARMTPassportStage() {
   const [baNo, setBaNo] = useState("");
   const [regdNo, setRegdNo] = useState("");
   const [barrelNo, setBarrelNo] = useState("");
+  const [dateOfIssue, setDateOfIssue] = useState("");
   const [items, setItems] = useState<PassportItem[]>([
     {
       id: "1",
@@ -105,7 +106,7 @@ export function ARMTPassportStage() {
           <CardTitle className="text-2xl">ARMT - PASSPORT</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div className="space-y-2">
               <Label htmlFor="ptNo">PT NO.</Label>
               <Input
@@ -140,6 +141,15 @@ export function ARMTPassportStage() {
                 placeholder="Enter Barrel Number"
                 value={barrelNo}
                 onChange={(e) => setBarrelNo(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="dateOfIssue">Date of Issue</Label>
+              <Input
+                id="dateOfIssue"
+                type="date"
+                value={dateOfIssue}
+                onChange={(e) => setDateOfIssue(e.target.value)}
               />
             </div>
           </div>
