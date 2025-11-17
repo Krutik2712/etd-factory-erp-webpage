@@ -14,10 +14,12 @@ import { Home, Users, Clock, AlertCircle } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
-  requisitionNo: string
-  passportNo: string
-  department: string
+  workOrderType: "MOS" | "LM" | "A-IN-U" | "MISC-ADHOC" | "DRWO" | "PAY-A-IN-U"
+  referenceId: string
   dateOfIssue: string
+  dueDate: string
+  completedOn: string | null
+  delayedBy: number | null
   status: "Completed" | "Ongoing" | "Stopped"
   manPowers: number
   manHours: number
@@ -27,40 +29,48 @@ interface WorkOrder {
 const workOrders: WorkOrder[] = [
   {
     orderNo: "WO-SRD-001",
-    requisitionNo: "REQ-2025-001",
-    passportNo: "SRD/Passport/2025-26/001",
-    department: "Radar Systems",
+    workOrderType: "MOS",
+    referenceId: "REQ-2025-001",
     dateOfIssue: "2025-01-15",
+    dueDate: "2025-02-25",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 6,
     manHours: 120
   },
   {
     orderNo: "WO-SRD-002",
-    requisitionNo: "REQ-2025-002",
-    passportNo: "SRD/Passport/2025-26/002",
-    department: "Communication Equipment",
+    workOrderType: "LM",
+    referenceId: "REQ-2025-002",
     dateOfIssue: "2025-01-16",
+    dueDate: "2025-02-26",
+    completedOn: null,
+    delayedBy: null,
     status: "Ongoing",
     manPowers: 8,
     manHours: 160
   },
   {
     orderNo: "WO-SRD-003",
-    requisitionNo: "REQ-2025-003",
-    passportNo: "SRD/Passport/2025-26/003",
-    department: "Electronic Warfare",
+    workOrderType: "A-IN-U",
+    referenceId: "REQ-2025-003",
     dateOfIssue: "2025-01-14",
+    dueDate: "2025-02-18",
+    completedOn: "2025-02-16",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 5,
     manHours: 100
   },
   {
     orderNo: "WO-SRD-004",
-    requisitionNo: "REQ-2025-004",
-    passportNo: "SRD/Passport/2025-26/004",
-    department: "Navigation Systems",
+    workOrderType: "MISC-ADHOC",
+    referenceId: "REQ-2025-004",
     dateOfIssue: "2025-01-13",
+    dueDate: "2025-02-10",
+    completedOn: null,
+    delayedBy: 7,
     status: "Stopped",
     manPowers: 7,
     manHours: 140,
@@ -68,10 +78,12 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-SRD-005",
-    requisitionNo: "REQ-2025-005",
-    passportNo: "SRD/Passport/2025-26/005",
-    department: "Radar Systems",
+    workOrderType: "DRWO",
+    referenceId: "REQ-2025-005",
     dateOfIssue: "2025-01-12",
+    dueDate: "2025-02-15",
+    completedOn: "2025-02-14",
+    delayedBy: 0,
     status: "Completed",
     manPowers: 9,
     manHours: 180
@@ -87,6 +99,8 @@ const STOP_REASONS = [
   "Material Delay",
   "Other"
 ]
+
+const WORK_ORDER_TYPES = ["MOS", "LM", "A-IN-U", "MISC-ADHOC", "DRWO", "PAY-A-IN-U"] as const
 
 export function SRDHome() {
   const [selectedOrder, setSelectedOrder] = useState<WorkOrder | null>(null)
@@ -179,10 +193,12 @@ export function SRDHome() {
             <TableHeader>
               <TableRow>
                 <TableHead>Work Order No.</TableHead>
-                <TableHead>Requisition No.</TableHead>
-                <TableHead>Passport No.</TableHead>
-                <TableHead>Department</TableHead>
+                <TableHead>Work Order Type</TableHead>
+                <TableHead>Reference ID</TableHead>
                 <TableHead>Date of Issue</TableHead>
+                <TableHead>Due Date</TableHead>
+                <TableHead>Completed On</TableHead>
+                <TableHead>Delayed By</TableHead>
                 <TableHead>Current Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -194,10 +210,14 @@ export function SRDHome() {
                   onClick={() => handleOrderClick(order)}
                 >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
-                  <TableCell>{order.requisitionNo}</TableCell>
-                  <TableCell>{order.passportNo}</TableCell>
-                  <TableCell>{order.department}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">{order.workOrderType}</Badge>
+                  </TableCell>
+                  <TableCell>{order.referenceId}</TableCell>
                   <TableCell>{order.dateOfIssue}</TableCell>
+                  <TableCell>{order.dueDate}</TableCell>
+                  <TableCell>{order.completedOn || "-"}</TableCell>
+                  <TableCell>{order.delayedBy !== null ? `${order.delayedBy} days` : "-"}</TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(order.status)}>
                       {order.status}
@@ -248,20 +268,28 @@ export function SRDHome() {
                   <p className="text-lg font-semibold">{selectedOrder.orderNo}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Requisition No.</p>
-                  <p className="text-lg font-semibold">{selectedOrder.requisitionNo}</p>
+                  <p className="text-sm text-muted-foreground">Work Order Type</p>
+                  <Badge variant="outline" className="text-base px-3 py-1">{selectedOrder.workOrderType}</Badge>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Passport No.</p>
-                  <p className="text-lg font-semibold">{selectedOrder.passportNo}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Department</p>
-                  <p className="text-lg font-semibold">{selectedOrder.department}</p>
+                  <p className="text-sm text-muted-foreground">Reference ID</p>
+                  <p className="text-lg font-semibold">{selectedOrder.referenceId}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Date of Issue</p>
                   <p className="text-lg font-semibold">{selectedOrder.dateOfIssue}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Due Date</p>
+                  <p className="text-lg font-semibold">{selectedOrder.dueDate}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed On</p>
+                  <p className="text-lg font-semibold">{selectedOrder.completedOn || "-"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Delayed By</p>
+                  <p className="text-lg font-semibold">{selectedOrder.delayedBy !== null ? `${selectedOrder.delayedBy} days` : "-"}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Status</p>

@@ -14,7 +14,7 @@ import { Home, Users, Clock, AlertCircle } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
-  workOrderType: string
+  workOrderType: "MOS" | "LM" | "A-IN-U" | "MISC-ADHOC" | "DRWO" | "PAY-A-IN-U"
   referenceId: string
   dateOfIssue: string
   dueDate: string
@@ -29,7 +29,7 @@ interface WorkOrder {
 const workOrders: WorkOrder[] = [
   {
     orderNo: "WO-ETD-001",
-    workOrderType: "Hull Assembly",
+    workOrderType: "MOS",
     referenceId: "REF-ETD-2024-001",
     dateOfIssue: "2024-01-15",
     dueDate: "2024-02-15",
@@ -41,7 +41,7 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ETD-002",
-    workOrderType: "Hull Assembly",
+    workOrderType: "LM",
     referenceId: "REF-ETD-2024-002",
     dateOfIssue: "2024-01-16",
     dueDate: "2024-02-16",
@@ -53,7 +53,7 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ETD-003",
-    workOrderType: "Hull Fabrication",
+    workOrderType: "A-IN-U",
     referenceId: "REF-ETD-2024-003",
     dateOfIssue: "2024-01-14",
     dueDate: "2024-02-10",
@@ -65,7 +65,7 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ETD-004",
-    workOrderType: "Welding",
+    workOrderType: "MISC-ADHOC",
     referenceId: "REF-ETD-2024-004",
     dateOfIssue: "2024-01-13",
     dueDate: "2024-02-01",
@@ -78,7 +78,7 @@ const workOrders: WorkOrder[] = [
   },
   {
     orderNo: "WO-ETD-005",
-    workOrderType: "Hull Assembly",
+    workOrderType: "DRWO",
     referenceId: "REF-ETD-2024-005",
     dateOfIssue: "2024-01-12",
     dueDate: "2024-02-05",
@@ -99,6 +99,8 @@ const STOP_REASONS = [
   "Material Delay",
   "Other"
 ]
+
+const WORK_ORDER_TYPES = ["MOS", "LM", "A-IN-U", "MISC-ADHOC", "DRWO", "PAY-A-IN-U"] as const
 
 export function ETDHome() {
   const [selectedOrder, setSelectedOrder] = useState<WorkOrder | null>(null)
@@ -208,7 +210,9 @@ export function ETDHome() {
                   onClick={() => handleOrderClick(order)}
                 >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
-                  <TableCell>{order.workOrderType}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">{order.workOrderType}</Badge>
+                  </TableCell>
                   <TableCell>{order.referenceId}</TableCell>
                   <TableCell>{order.dateOfIssue}</TableCell>
                   <TableCell>{order.dueDate}</TableCell>
@@ -265,7 +269,7 @@ export function ETDHome() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Work Order Type</p>
-                  <p className="text-lg font-semibold">{selectedOrder.workOrderType}</p>
+                  <Badge variant="outline" className="text-base px-3 py-1">{selectedOrder.workOrderType}</Badge>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Reference ID</p>
