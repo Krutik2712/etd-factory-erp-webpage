@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Home, Users, Clock } from "lucide-react"
+import { Home, Users, Clock, AlertCircle } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
@@ -21,6 +21,7 @@ interface WorkOrder {
   status: "Completed" | "Ongoing" | "Stopped"
   manPowers: number
   manHours: number
+  stopReason?: string
 }
 
 const workOrders: WorkOrder[] = [
@@ -62,7 +63,8 @@ const workOrders: WorkOrder[] = [
     dateOfIssue: "2024-01-13",
     status: "Stopped",
     manPowers: 12,
-    manHours: 240
+    manHours: 240,
+    stopReason: "Worker not available"
   },
   {
     orderNo: "WO-ARMT-005",
@@ -76,8 +78,20 @@ const workOrders: WorkOrder[] = [
   }
 ]
 
+const STOP_REASONS = [
+  "Worker not available",
+  "Machine Breakdown",
+  "Shortage of Spares",
+  "Power Outage",
+  "Quality Issues",
+  "Material Delay",
+  "Other"
+]
+
 export function ARMTHome() {
   const [selectedOrder, setSelectedOrder] = useState<WorkOrder | null>(null)
+  const [editableReason, setEditableReason] = useState<string>("")
+  const [isEditingReason, setIsEditingReason] = useState(false)
 
   const getStatusColor = (status: WorkOrder["status"]) => {
     switch (status) {
@@ -88,6 +102,21 @@ export function ARMTHome() {
       case "Stopped":
         return "bg-red-500 text-white"
     }
+  }
+
+  const handleOrderClick = (order: WorkOrder) => {
+    setSelectedOrder(order)
+    setEditableReason(order.stopReason || "")
+    setIsEditingReason(false)
+  }
+
+  const handleSubmitReason = () => {
+    // Here you would normally send this to an API
+    console.log(`Updating stop reason for ${selectedOrder?.orderNo}: ${editableReason}`)
+    if (selectedOrder) {
+      selectedOrder.stopReason = editableReason
+    }
+    setIsEditingReason(false)
   }
 
   const totalManPowers = workOrders.reduce((sum, wo) => sum + wo.manPowers, 0)
@@ -162,7 +191,7 @@ export function ARMTHome() {
                 <TableRow 
                   key={order.orderNo}
                   className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => setSelectedOrder(order)}
+                  onClick={() => handleOrderClick(order)}
                 >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
                   <TableCell>{order.weaponSystem}</TableCell>
@@ -241,6 +270,65 @@ export function ARMTHome() {
                   </Badge>
                 </div>
               </div>
+
+              {/* Stop Reason Section - Only show for Stopped orders */}
+              {selectedOrder.status === "Stopped" && (
+                <div className="border-t border-border pt-4 mt-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertCircle className="h-5 w-5 text-red-500" />
+                    <h3 className="text-lg font-semibold">Stop Reason</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {isEditingReason ? (
+                      <>
+                        <select
+                          value={editableReason}
+                          onChange={(e) => setEditableReason(e.target.value)}
+                          className="w-full p-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                        >
+                          <option value="">Select a reason...</option>
+                          {STOP_REASONS.map((reason) => (
+                            <option key={reason} value={reason}>
+                              {reason}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={handleSubmitReason}
+                            className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                          >
+                            Submit
+                          </button>
+                          <button
+                            onClick={() => {
+                              setIsEditingReason(false)
+                              setEditableReason(selectedOrder.stopReason || "")
+                            }}
+                            className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                          <p className="text-sm font-medium text-red-900 dark:text-red-100">
+                            {selectedOrder.stopReason || "No reason specified"}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => setIsEditingReason(true)}
+                          className="w-full bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                        >
+                          Edit Reason
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
               
               <div className="border-t border-border pt-4 mt-4">
                 <h3 className="text-lg font-semibold mb-3">Resource Requirements</h3>
