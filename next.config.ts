@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
+  // outputFileTracingRoot: path.resolve(__dirname, '../../'), // Commented out - may cause issues when importing to different environments
   typescript: {
     ignoreBuildErrors: true,
   },
