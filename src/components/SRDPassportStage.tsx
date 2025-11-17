@@ -136,7 +136,7 @@ export function SRDPassportStage() {
               id="date"
               type="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)} />
+              onChange={(e) => setDate(e.target.value)} className="!w-[128%] !h-full" />
 
           </div>
         </div>
