@@ -36,78 +36,78 @@ const sampleData: StoreItem[] = [
   {
     srNo: 1,
     ohsNo: "OHS-001",
-    partNo: "PT-001",
-    nomenclature: "Main Gun Assembly",
+    partNo: "SRD-PT-001",
+    nomenclature: "Radar Assembly Module",
     scaling: "100",
-    ct: 2,
-    rt: 4,
-    bal: 2,
+    ct: 5,
+    rt: 8,
+    bal: 3,
     ohOssLp: "OH",
-    drawing: "Drawing-PT-001-Rev3.pdf"
+    drawing: "Drawing-SRD-001-Rev2.pdf"
   },
   {
     srNo: 2,
     ohsNo: "OHS-002",
-    partNo: "PT-002",
-    nomenclature: "Barrel Component",
-    scaling: "95",
-    ct: 1,
-    rt: 3,
-    bal: 2,
+    partNo: "SRD-PT-002",
+    nomenclature: "Signal Processing Unit",
+    scaling: "85",
+    ct: 3,
+    rt: 6,
+    bal: 3,
     ohOssLp: "OSS",
-    drawing: "Drawing-PT-002-Rev2.pdf"
+    drawing: "Drawing-SRD-002-Rev1.pdf"
   },
   {
     srNo: 3,
     ohsNo: "OHS-003",
-    partNo: "PT-010",
-    nomenclature: "Trigger Mechanism",
-    scaling: "85",
-    ct: 4,
-    rt: 8,
+    partNo: "SRD-PT-003",
+    nomenclature: "Antenna Array Component",
+    scaling: "95",
+    ct: 8,
+    rt: 12,
     bal: 4,
     ohOssLp: "LP",
-    drawing: "Drawing-PT-010-Rev1.pdf"
+    drawing: "Drawing-SRD-003-Rev3.pdf"
   },
   {
     srNo: 4,
     ohsNo: "OHS-004",
-    partNo: "PT-011",
-    nomenclature: "Safety Lock",
+    partNo: "SRD-PT-004",
+    nomenclature: "Transmitter Module",
     scaling: "90",
     ct: 4,
-    rt: 6,
-    bal: 2,
+    rt: 7,
+    bal: 3,
     ohOssLp: "OH",
-    drawing: "Drawing-PT-011-Rev2.pdf"
+    drawing: "Drawing-SRD-004-Rev2.pdf"
   },
   {
     srNo: 5,
     ohsNo: "OHS-005",
-    partNo: "PT-020",
-    nomenclature: "Ammunition Feed",
+    partNo: "SRD-PT-005",
+    nomenclature: "Receiver Circuit Board",
     scaling: "100",
-    ct: 1,
-    rt: 2,
-    bal: 1,
+    ct: 6,
+    rt: 10,
+    bal: 4,
     ohOssLp: "OSS",
-    drawing: "Drawing-PT-020-Rev4.pdf"
+    drawing: "Drawing-SRD-005-Rev1.pdf"
   },
   {
     srNo: 6,
     ohsNo: "OHS-006",
-    partNo: "PT-030",
-    nomenclature: "Recoil Spring",
+    partNo: "SRD-PT-006",
+    nomenclature: "Power Supply Unit",
     scaling: "88",
-    ct: 2,
-    rt: 5,
+    ct: 7,
+    rt: 10,
     bal: 3,
     ohOssLp: "LP",
-    drawing: "Drawing-PT-030-Rev1.pdf"
+    drawing: "Drawing-SRD-006-Rev4.pdf"
   }
 ];
 
-export function ARMTStoreStage() {
+export function SRDStoreStage() {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [selectedDrawing, setSelectedDrawing] = useState<string>("");
 
@@ -121,7 +121,7 @@ export function ARMTStoreStage() {
       {/* Header Section */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">ARMT - Store</CardTitle>
+          <CardTitle className="text-2xl">SRD - Store</CardTitle>
         </CardHeader>
       </Card>
 
