@@ -98,7 +98,6 @@ const sampleComponents: SRDComponent[] = [
 export function SRDPassportStage() {
   const [components] = useState<SRDComponent[]>(sampleComponents);
   const [passportNo, setPassportNo] = useState("SRD/Passport/2025-26");
-  const [date, setDate] = useState("");
   const [dateOfIssue, setDateOfIssue] = useState("");
 
   const handleSendForApproval = () => {
@@ -112,7 +111,7 @@ export function SRDPassportStage() {
         <h2 className="text-2xl font-bold mb-6 text-center !whitespace-pre-line">PASSPORT : SRD </h2>
         
         {/* Header Fields */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="space-y-2">
             <Label htmlFor="passportNo">Passport No.</Label>
             <Input
@@ -128,15 +127,6 @@ export function SRDPassportStage() {
               type="date"
               value={dateOfIssue}
               onChange={(e) => setDateOfIssue(e.target.value)} />
-
-          </div>
-          <div className="space-y-2 !w-[3%] !h-5">
-            <Label htmlFor="date">Date</Label>
-            <Input
-              id="date"
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)} className="!w-[128%] !h-full" />
 
           </div>
         </div>
