@@ -20,6 +20,7 @@ interface SRDComponent {
   qty: string;
   statusR: string;
   statusN: string;
+  gangLeader: string;
   stageInspQA: string;
   remarks: string;
   isSubItem?: boolean;
@@ -27,71 +28,71 @@ interface SRDComponent {
 
 const sampleComponents: SRDComponent[] = [
 // Radiators and Oil Coolers
-{ srNo: 1, gpNo: 3, nomenclature: "Radiators and Oil Coolers (03)", qty: "", statusR: "R", statusN: "N", stageInspQA: "NAME", remarks: "" },
-{ nomenclature: "(a) Radiators", qty: "01", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
-{ nomenclature: "(b) Oil cooler", qty: "01", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
-{ nomenclature: "(c) Cooler Gear box", qty: "01", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ srNo: 1, gpNo: 3, nomenclature: "Radiators and Oil Coolers (03)", qty: "", statusR: "R", statusN: "N", gangLeader: "", stageInspQA: "NAME", remarks: "" },
+{ nomenclature: "(a) Radiators", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ nomenclature: "(b) Oil cooler", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ nomenclature: "(c) Cooler Gear box", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
 
 // Fuel Systems
-{ srNo: 2, gpNo: 5, nomenclature: "Fuel Systems (05)", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a) Tank (Diesel)", qty: "01", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "(b) Tank LH", qty: "01", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "(c) Tank RH", qty: "01", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
-{ nomenclature: "(d) Fuel filter", qty: "01", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
-{ nomenclature: "(e) Fuel Pipe line", qty: "38", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ srNo: 2, gpNo: 5, nomenclature: "Fuel Systems (05)", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a) Tank (Diesel)", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "(b) Tank LH", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "(c) Tank RH", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ nomenclature: "(d) Fuel filter", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ nomenclature: "(e) Fuel Pipe line", qty: "38", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
 
 // Lubrication tank
-{ srNo: 3, gpNo: 6, nomenclature: "Lubrication tank (06)", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a) Oil Tank", qty: "01", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "(b) Oil Dipstick (Neck)", qty: "01", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "(c) Oil NRV", qty: "01", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
-{ nomenclature: "(d) Oil Pipe line", qty: "15", statusR: "", statusN: "", stageInspQA: "", remarks: "", isSubItem: true },
+{ srNo: 3, gpNo: 6, nomenclature: "Lubrication tank (06)", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a) Oil Tank", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "(b) Oil Dipstick (Neck)", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "(c) Oil NRV", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ nomenclature: "(d) Oil Pipe line", qty: "15", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
 
 // Cooling and preheating System
-{ srNo: 4, gpNo: 8, nomenclature: "Cooling and preheating System", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a) Expansion tank", qty: "01", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "(b) P.V.R.V", qty: "01", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "(c) Pipe line", qty: "36", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 4, gpNo: 8, nomenclature: "Cooling and preheating System", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a) Expansion tank", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "(b) P.V.R.V", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "(c) Pipe line", qty: "36", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // Seals
-{ srNo: 5, gpNo: 18, nomenclature: "Seals", qty: "02", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "" },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 5, gpNo: 18, nomenclature: "Seals", qty: "02", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "" },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // Water Bilge pumps
-{ srNo: 6, gpNo: 38, nomenclature: "Water Bilge pumps", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a)Bilge pump pipe line", qty: "11", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "02", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 6, gpNo: 38, nomenclature: "Water Bilge pumps", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a)Bilge pump pipe line", qty: "11", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "02", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // EVS & FVU
-{ srNo: 7, gpNo: 59, nomenclature: "Seals", qty: "02", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "" },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 7, gpNo: 59, nomenclature: "Seals", qty: "02", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "" },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // EVS & FVU actual
-{ srNo: 8, gpNo: 71, nomenclature: "EVS & FVU", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "a) Crew heater", qty: "01", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "b) Ventilating pipe line", qty: "14", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "c) Heater", qty: "01", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 8, gpNo: 71, nomenclature: "EVS & FVU", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "a) Crew heater", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "b) Ventilating pipe line", qty: "14", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "c) Heater", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // Compressed Air Equipment
-{ srNo: 9, gpNo: 78, nomenclature: "Compressed Air Equipment", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a) Air pipe line", qty: "70", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "(b) Turret pipe line", qty: "08", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "(c) Air Gauge Bracket", qty: "01", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 9, gpNo: 78, nomenclature: "Compressed Air Equipment", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a) Air pipe line", qty: "70", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "(b) Turret pipe line", qty: "08", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "(c) Air Gauge Bracket", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // Smoke Generating Equipment
-{ srNo: 10, gpNo: 84, nomenclature: "Smoke Generating Equipment", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "a) Smoke Generating", qty: "09", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "Pipe line", qty: "", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
+{ srNo: 10, gpNo: 84, nomenclature: "Smoke Generating Equipment", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "a) Smoke Generating", qty: "09", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "Pipe line", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true },
 
 // Vision devices
-{ srNo: 11, gpNo: 66, nomenclature: "Vision devices", qty: "", statusR: "", statusN: "", stageInspQA: "", remarks: "" },
-{ nomenclature: "(a) Tank (Periscope)", qty: "02", statusR: "", statusN: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "CM", remarks: "", isSubItem: true },
-{ nomenclature: "", qty: "", statusR: "", statusN: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true }];
+{ srNo: 11, gpNo: 66, nomenclature: "Vision devices", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+{ nomenclature: "(a) Tank (Periscope)", qty: "02", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+{ nomenclature: "", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true }];
 
 
 export function SRDPassportStage() {
@@ -119,6 +120,7 @@ export function SRDPassportStage() {
                 <TableHead className="min-w-[250px] border-r">NOMENCLATURE</TableHead>
                 <TableHead className="w-[80px] border-r text-center">QTY</TableHead>
                 <TableHead colSpan={2} className="text-center border-r">STATUS(%)</TableHead>
+                <TableHead className="w-[150px] text-center border-r">GANG LEADER</TableHead>
                 <TableHead className="text-center border-r">STAGE INSP(QA)</TableHead>
                 <TableHead className="min-w-[120px] text-center">Remarks</TableHead>
               </TableRow>
@@ -126,6 +128,7 @@ export function SRDPassportStage() {
                 <TableHead className="border-r" colSpan={4}></TableHead>
                 <TableHead className="text-center border-r w-[70px]">R</TableHead>
                 <TableHead className="text-center border-r w-[70px]">N</TableHead>
+                <TableHead className="border-r"></TableHead>
                 <TableHead className="text-center border-r w-[150px]">NAME</TableHead>
                 <TableHead></TableHead>
               </TableRow>
@@ -150,6 +153,9 @@ export function SRDPassportStage() {
                   </TableCell>
                   <TableCell className="text-center border-r">
                     {component.statusN}
+                  </TableCell>
+                  <TableCell className="border-r text-center">
+                    {component.gangLeader}
                   </TableCell>
                   <TableCell className="border-r text-center !whitespace-pre-line">
                     {component.stageInspQA}

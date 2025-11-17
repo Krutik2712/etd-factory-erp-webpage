@@ -45,6 +45,7 @@ interface WorkOrder {
   baNo?: string
   regdNo?: string
   barrelNo?: string
+  passportNo?: string
 }
 
 interface PassportItem {
@@ -58,6 +59,14 @@ interface PassportItem {
   receivedOrNot?: "YES" | "NO" | ""
   deficiency?: string
   serviceable?: "YES" | "NO" | ""
+  qty?: string
+  statusR?: string
+  statusN?: string
+  gangLeader?: string
+  stageInspQA?: string
+  remarks?: string
+  isSubItem?: boolean
+  gpNo?: number
 }
 
 const departments: Department[] = [
@@ -150,7 +159,7 @@ const departments: Department[] = [
   }
 ]
 
-// Work orders data for ETD and ARMT
+// Work orders data for ETD, ARMT, and SRD
 const workOrdersData: Record<string, WorkOrder[]> = {
   ETD: [
     {
@@ -221,6 +230,32 @@ const workOrdersData: Record<string, WorkOrder[]> = {
       regdNo: "REG-30-003",
       barrelNo: "BRL-003"
     }
+  ],
+  SRD: [
+    {
+      id: "WO-SRD-001",
+      orderNo: "WO-SRD-001",
+      stage: "PASSPORT",
+      status: "ongoing",
+      passportNo: "SRD/Passport/2025-26/001",
+      dateOfIssue: "2025-01-15"
+    },
+    {
+      id: "WO-SRD-002",
+      orderNo: "WO-SRD-002",
+      stage: "PASSPORT",
+      status: "ongoing",
+      passportNo: "SRD/Passport/2025-26/002",
+      dateOfIssue: "2025-01-16"
+    },
+    {
+      id: "WO-SRD-003",
+      orderNo: "WO-SRD-003",
+      stage: "PASSPORT",
+      status: "pending_approval",
+      passportNo: "SRD/Passport/2025-26/003",
+      dateOfIssue: "2025-01-14"
+    }
   ]
 }
 
@@ -288,6 +323,18 @@ const armtPassportItems: PassportItem[] = [
   }
 ]
 
+// Sample passport items for SRD
+const srdPassportItems: PassportItem[] = [
+  { srNo: 1, gpNo: 3, nomenclature: "Radiators and Oil Coolers (03)", qty: "", statusR: "R", statusN: "N", gangLeader: "", stageInspQA: "NAME", remarks: "" },
+  { nomenclature: "(a) Radiators", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+  { nomenclature: "(b) Oil cooler", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+  { nomenclature: "(c) Cooler Gear box", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "", isSubItem: true },
+  { srNo: 2, gpNo: 5, nomenclature: "Fuel Systems (05)", qty: "", statusR: "", statusN: "", gangLeader: "", stageInspQA: "", remarks: "" },
+  { nomenclature: "(a) Tank (Diesel)", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "P-5184", remarks: "", isSubItem: true },
+  { nomenclature: "(b) Tank LH", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "CM", remarks: "", isSubItem: true },
+  { nomenclature: "(c) Tank RH", qty: "01", statusR: "", statusN: "", gangLeader: "", stageInspQA: "Iftekhar", remarks: "", isSubItem: true }
+]
+
 export function QAInchargeDashboard() {
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null)
   const [selectedWorkOrder, setSelectedWorkOrder] = useState<WorkOrder | null>(null)
@@ -313,6 +360,16 @@ export function QAInchargeDashboard() {
   const currentWorkOrders = selectedDepartment ? workOrdersData[selectedDepartment.id] || [] : []
   const ongoingOrders = currentWorkOrders.filter(wo => wo.status === "ongoing")
   const pendingOrders = currentWorkOrders.filter(wo => wo.status === "pending_approval")
+
+  // Determine which passport items to show
+  let passportItems: PassportItem[] = []
+  if (selectedDepartment?.id === "ETD") {
+    passportItems = etdPassportItems
+  } else if (selectedDepartment?.id === "ARMT") {
+    passportItems = armtPassportItems
+  } else if (selectedDepartment?.id === "SRD") {
+    passportItems = srdPassportItems
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -383,7 +440,7 @@ export function QAInchargeDashboard() {
 
                 {/* Work Orders Content */}
                 <div className="p-6 space-y-6">
-                  {(selectedDepartment.id === "ETD" || selectedDepartment.id === "ARMT") ? (
+                  {(selectedDepartment.id === "ETD" || selectedDepartment.id === "ARMT" || selectedDepartment.id === "SRD") ? (
                     <>
                       {/* Ongoing Work Orders */}
                       <div>
@@ -393,25 +450,23 @@ export function QAInchargeDashboard() {
                         </h3>
                         <div className="space-y-2">
                           {ongoingOrders.map((order) => (
-                            <button
+                            <div
                               key={order.id}
-                              onClick={() => handleWorkOrderClick(order)}
-                              className="w-full bg-muted hover:bg-muted/80 p-4 rounded-lg transition-colors text-left flex items-center justify-between group"
+                              className="w-full bg-muted p-4 rounded-lg text-left flex items-center justify-between"
                             >
                               <div>
                                 <p className="font-semibold text-foreground">{order.orderNo} - {order.stage}</p>
                                 <p className="text-sm text-muted-foreground mt-1">
                                   {selectedDepartment.id === "ETD" 
                                     ? `Hull: ${order.hullNo} | Ref: ${order.referenceId}`
-                                    : `PT: ${order.ptNo} | BA: ${order.baNo}`
+                                    : selectedDepartment.id === "ARMT"
+                                    ? `PT: ${order.ptNo} | BA: ${order.baNo}`
+                                    : `Passport: ${order.passportNo}`
                                   }
                                 </p>
                               </div>
-                              <div className="flex items-center gap-2">
-                                <Badge variant="default" className="bg-green-500">Ongoing</Badge>
-                                <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                              </div>
-                            </button>
+                              <Badge variant="default" className="bg-green-500">Ongoing</Badge>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -434,7 +489,9 @@ export function QAInchargeDashboard() {
                                 <p className="text-sm text-muted-foreground mt-1">
                                   {selectedDepartment.id === "ETD" 
                                     ? `Hull: ${order.hullNo} | Ref: ${order.referenceId}`
-                                    : `PT: ${order.ptNo} | BA: ${order.baNo}`
+                                    : selectedDepartment.id === "ARMT"
+                                    ? `PT: ${order.ptNo} | BA: ${order.baNo}`
+                                    : `Passport: ${order.passportNo}`
                                   }
                                 </p>
                               </div>
@@ -530,7 +587,7 @@ export function QAInchargeDashboard() {
                             <Input value={selectedWorkOrder.dateOfIssue} readOnly className="font-medium" />
                           </div>
                         </>
-                      ) : (
+                      ) : selectedDepartment.id === "ARMT" ? (
                         <>
                           <div className="space-y-2">
                             <Label>PT NO.</Label>
@@ -547,6 +604,17 @@ export function QAInchargeDashboard() {
                           <div className="space-y-2">
                             <Label>BARREL NO.</Label>
                             <Input value={selectedWorkOrder.barrelNo} readOnly />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="space-y-2">
+                            <Label>Passport No.</Label>
+                            <Input value={selectedWorkOrder.passportNo} readOnly />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Date of Issue</Label>
+                            <Input value={selectedWorkOrder.dateOfIssue} readOnly />
                           </div>
                         </>
                       )}
@@ -586,7 +654,7 @@ export function QAInchargeDashboard() {
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {etdPassportItems.map((item) => (
+                            {passportItems.map((item) => (
                               <TableRow key={item.srNo}>
                                 <TableCell className="font-medium">{item.srNo}</TableCell>
                                 <TableCell>{item.nomenclature}</TableCell>
@@ -604,7 +672,7 @@ export function QAInchargeDashboard() {
                             ))}
                           </TableBody>
                         </Table>
-                      ) : (
+                      ) : selectedDepartment.id === "ARMT" ? (
                         <Table>
                           <TableHeader>
                             <TableRow>
@@ -617,7 +685,7 @@ export function QAInchargeDashboard() {
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {armtPassportItems.map((item) => (
+                            {passportItems.map((item) => (
                               <TableRow key={item.srNo}>
                                 <TableCell className="font-medium">{item.srNo}</TableCell>
                                 <TableCell>{item.nomenclature}</TableCell>
@@ -632,6 +700,62 @@ export function QAInchargeDashboard() {
                                   <Badge variant={item.serviceable === "YES" ? "default" : "destructive"}>
                                     {item.serviceable}
                                   </Badge>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      ) : (
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead className="w-[60px] border-r text-center">Sr<br />No</TableHead>
+                              <TableHead className="w-[60px] border-r text-center">Gp<br />No</TableHead>
+                              <TableHead className="min-w-[250px] border-r">NOMENCLATURE</TableHead>
+                              <TableHead className="w-[80px] border-r text-center">QTY</TableHead>
+                              <TableHead colSpan={2} className="text-center border-r">STATUS(%)</TableHead>
+                              <TableHead className="w-[150px] text-center border-r">GANG LEADER</TableHead>
+                              <TableHead className="text-center border-r">STAGE INSP(QA)</TableHead>
+                              <TableHead className="min-w-[120px] text-center">Remarks</TableHead>
+                            </TableRow>
+                            <TableRow>
+                              <TableHead className="border-r" colSpan={4}></TableHead>
+                              <TableHead className="text-center border-r w-[70px]">R</TableHead>
+                              <TableHead className="text-center border-r w-[70px]">N</TableHead>
+                              <TableHead className="border-r"></TableHead>
+                              <TableHead className="text-center border-r w-[150px]">NAME</TableHead>
+                              <TableHead></TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {passportItems.map((item, index) => (
+                              <TableRow key={index} className={item.isSubItem ? "bg-muted/30" : ""}>
+                                <TableCell className="border-r text-center font-medium">
+                                  {item.srNo || ""}
+                                </TableCell>
+                                <TableCell className="border-r text-center">
+                                  {item.gpNo || ""}
+                                </TableCell>
+                                <TableCell className={`border-r ${item.isSubItem ? "pl-8" : "font-medium"}`}>
+                                  {item.nomenclature}
+                                </TableCell>
+                                <TableCell className="border-r text-center">
+                                  {item.qty}
+                                </TableCell>
+                                <TableCell className="text-center border-r">
+                                  {item.statusR}
+                                </TableCell>
+                                <TableCell className="text-center border-r">
+                                  {item.statusN}
+                                </TableCell>
+                                <TableCell className="border-r text-center">
+                                  {item.gangLeader}
+                                </TableCell>
+                                <TableCell className="border-r text-center !whitespace-pre-line">
+                                  {item.stageInspQA}
+                                </TableCell>
+                                <TableCell>
+                                  {item.remarks}
                                 </TableCell>
                               </TableRow>
                             ))}
