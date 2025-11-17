@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import {
   Table,
@@ -7,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Home } from "lucide-react"
+import { Home, Users, Clock } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
@@ -16,6 +19,8 @@ interface WorkOrder {
   baNo: string
   dateOfIssue: string
   status: "Completed" | "Ongoing" | "Stopped"
+  manPowers: number
+  manHours: number
 }
 
 const workOrders: WorkOrder[] = [
@@ -25,7 +30,9 @@ const workOrders: WorkOrder[] = [
     ptNo: "PT-2024-001",
     baNo: "BA-001",
     dateOfIssue: "2024-01-15",
-    status: "Ongoing"
+    status: "Ongoing",
+    manPowers: 8,
+    manHours: 160
   },
   {
     orderNo: "WO-ARMT-002",
@@ -33,7 +40,9 @@ const workOrders: WorkOrder[] = [
     ptNo: "PT-2024-002",
     baNo: "BA-002",
     dateOfIssue: "2024-01-16",
-    status: "Ongoing"
+    status: "Ongoing",
+    manPowers: 10,
+    manHours: 200
   },
   {
     orderNo: "WO-ARMT-003",
@@ -41,7 +50,9 @@ const workOrders: WorkOrder[] = [
     ptNo: "PT-2024-003",
     baNo: "BA-003",
     dateOfIssue: "2024-01-14",
-    status: "Completed"
+    status: "Completed",
+    manPowers: 7,
+    manHours: 140
   },
   {
     orderNo: "WO-ARMT-004",
@@ -49,7 +60,9 @@ const workOrders: WorkOrder[] = [
     ptNo: "PT-2024-004",
     baNo: "BA-004",
     dateOfIssue: "2024-01-13",
-    status: "Stopped"
+    status: "Stopped",
+    manPowers: 12,
+    manHours: 240
   },
   {
     orderNo: "WO-ARMT-005",
@@ -57,11 +70,15 @@ const workOrders: WorkOrder[] = [
     ptNo: "PT-2024-005",
     baNo: "BA-005",
     dateOfIssue: "2024-01-12",
-    status: "Completed"
+    status: "Completed",
+    manPowers: 9,
+    manHours: 180
   }
 ]
 
 export function ARMTHome() {
+  const [selectedOrder, setSelectedOrder] = useState<WorkOrder | null>(null)
+
   const getStatusColor = (status: WorkOrder["status"]) => {
     switch (status) {
       case "Completed":
@@ -72,6 +89,9 @@ export function ARMTHome() {
         return "bg-red-500 text-white"
     }
   }
+
+  const totalManPowers = workOrders.reduce((sum, wo) => sum + wo.manPowers, 0)
+  const totalManHours = workOrders.reduce((sum, wo) => sum + wo.manHours, 0)
 
   return (
     <div className="space-y-6">
@@ -96,9 +116,6 @@ export function ARMTHome() {
                 {workOrders.filter(wo => wo.status === "Ongoing").length}
               </p>
             </div>
-            <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full">
-              <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-            </div>
           </div>
         </div>
         <div className="bg-card border border-border rounded-lg p-6">
@@ -109,9 +126,6 @@ export function ARMTHome() {
                 {workOrders.filter(wo => wo.status === "Completed").length}
               </p>
             </div>
-            <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
-              <div className="w-8 h-8 bg-green-500 rounded-full"></div>
-            </div>
           </div>
         </div>
         <div className="bg-card border border-border rounded-lg p-6">
@@ -121,9 +135,6 @@ export function ARMTHome() {
               <p className="text-3xl font-bold text-red-500">
                 {workOrders.filter(wo => wo.status === "Stopped").length}
               </p>
-            </div>
-            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
-              <div className="w-8 h-8 bg-red-500 rounded-full"></div>
             </div>
           </div>
         </div>
@@ -148,7 +159,11 @@ export function ARMTHome() {
             </TableHeader>
             <TableBody>
               {workOrders.map((order) => (
-                <TableRow key={order.orderNo}>
+                <TableRow 
+                  key={order.orderNo}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => setSelectedOrder(order)}
+                >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
                   <TableCell>{order.weaponSystem}</TableCell>
                   <TableCell>{order.ptNo}</TableCell>
@@ -164,7 +179,100 @@ export function ARMTHome() {
             </TableBody>
           </Table>
         </div>
+
+        {/* Man Powers and Man Hours Section */}
+        <div className="p-6 border-t border-border bg-muted/30">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <Users className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Total Man Powers Required</p>
+                <p className="text-2xl font-bold">{totalManPowers}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <Clock className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Total Man Hours Required</p>
+                <p className="text-2xl font-bold">{totalManHours}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Work Order Details Modal/Section */}
+      {selectedOrder && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setSelectedOrder(null)}>
+          <div className="bg-card border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 border-b border-border">
+              <h2 className="text-2xl font-bold">Work Order Details</h2>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">Work Order No.</p>
+                  <p className="text-lg font-semibold">{selectedOrder.orderNo}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Weapon System</p>
+                  <p className="text-lg font-semibold">{selectedOrder.weaponSystem}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">PT No.</p>
+                  <p className="text-lg font-semibold">{selectedOrder.ptNo}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">BA No.</p>
+                  <p className="text-lg font-semibold">{selectedOrder.baNo}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Date of Issue</p>
+                  <p className="text-lg font-semibold">{selectedOrder.dateOfIssue}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Status</p>
+                  <Badge className={getStatusColor(selectedOrder.status)}>
+                    {selectedOrder.status}
+                  </Badge>
+                </div>
+              </div>
+              
+              <div className="border-t border-border pt-4 mt-4">
+                <h3 className="text-lg font-semibold mb-3">Resource Requirements</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center gap-3 bg-muted/50 p-4 rounded-lg">
+                    <Users className="h-6 w-6 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Man Powers</p>
+                      <p className="text-xl font-bold">{selectedOrder.manPowers}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 bg-muted/50 p-4 rounded-lg">
+                    <Clock className="h-6 w-6 text-primary" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Man Hours</p>
+                      <p className="text-xl font-bold">{selectedOrder.manHours}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-6 border-t border-border">
+              <button
+                onClick={() => setSelectedOrder(null)}
+                className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
