@@ -171,6 +171,70 @@ export const INSTReportsStage = () => {
           </CardContent>
         </Card>
       )}
+
+      {reportType === "defect" && (
+        <Card>
+          <CardHeader>
+            <CardTitle>I.A.F. (EME) EQ-I (3rd Revision) - DEFECT REPORT FORM ARMY TECHNICAL EQUIPMENT</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex justify-end">
+              <Button onClick={handleSendForApproval} size="lg">
+                Send for Approval
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {reportType === "condemnation" && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">
+              <div className="text-xl font-bold">CONDEMNATION REPORT</div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex justify-end">
+              <Button onClick={handleSendForApproval} size="lg">
+                Send for Approval
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {reportType === "vir" && (
+        <Card>
+          <CardHeader>
+            <CardTitle>VIR (Viewer's Inspection Report)</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex justify-end">
+              <Button onClick={handleSendForApproval} size="lg">
+                Send for Approval
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {reportType === "rejection" && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">
+              <div className="text-xl font-bold">REJECT SLIP</div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex justify-end">
+              <Button onClick={handleSendForApproval} size="lg">
+                Send for Approval
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }
