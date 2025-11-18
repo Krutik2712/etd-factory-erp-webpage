@@ -114,21 +114,21 @@ export function INSTInterOfficeNote() {
             value={tankBANo}
             onChange={(e) => setTankBANo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
+            placeholder=""
           />{" "}
           & overhauled P T No{" "}
           <Input
             value={vehicleNo}
             onChange={(e) => setVehicleNo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
+            placeholder=""
           />{" "}
           (vehicle no.) Sec{" "}
           <Input
             value={sec}
             onChange={(e) => setSec(e.target.value)}
             className="inline-block w-32 mx-1"
-            placeholder="____________"
+            placeholder=""
           />{" "}
           are fwd herewith.
         </div>
@@ -263,21 +263,21 @@ export function INSTInterOfficeNote() {
             value={tankBANo}
             onChange={(e) => setTankBANo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
+            placeholder=""
           />{" "}
           overhauled CMT No.{" "}
           <Input
             value={cmtNo}
             onChange={(e) => setCmtNo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
+            placeholder=""
           />{" "}
           Sec{" "}
           <Input
             value={sec}
             onChange={(e) => setSec(e.target.value)}
             className="inline-block w-32 mx-1"
-            placeholder="____________"
+            placeholder=""
           />{" "}
           are fwd herewith.
         </div>
