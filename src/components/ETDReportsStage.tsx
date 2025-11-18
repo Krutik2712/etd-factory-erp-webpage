@@ -303,95 +303,118 @@ export function ETDReportsStage() {
       {reportType === "condemnation" && (
         <Card>
           <CardHeader>
-            <CardTitle>Condemnation Report</CardTitle>
+            <CardTitle className="text-center">
+              <div className="space-y-1">
+                <div className="text-sm">CAF HEMET E-25 (1st Revision)</div>
+                <div className="text-xl font-bold">CONDEMNATION REPORT</div>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Header Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 border-b pb-4">
               <div className="space-y-2">
-                <Label htmlFor="cn-report-no">Report No.</Label>
-                <Input id="cn-report-no" placeholder="Enter report number" />
+                <Label htmlFor="cn-no">No.</Label>
+                <Input id="cn-no" placeholder="Enter number" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cn-workshop">Workshop</Label>
+                <Input id="cn-workshop" placeholder="Enter workshop" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cn-station">Station</Label>
+                <Input id="cn-station" placeholder="Enter station" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="cn-date">Date</Label>
                 <Input id="cn-date" type="date" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="cn-inspector">Inspector Name</Label>
-                <Input id="cn-inspector" placeholder="Enter inspector name" />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="cn-part-no">Part No.</Label>
-                <Input id="cn-part-no" placeholder="Enter part number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cn-nomenclature">Nomenclature</Label>
-                <Input id="cn-nomenclature" placeholder="Enter nomenclature" />
-              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="cn-ohs-no">OHS No.</Label>
-                <Input id="cn-ohs-no" placeholder="Enter OHS number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cn-quantity">Quantity</Label>
-                <Input id="cn-quantity" type="number" placeholder="Enter quantity" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cn-batch-no">Batch No.</Label>
-                <Input id="cn-batch-no" placeholder="Enter batch number" />
-              </div>
-            </div>
-
+            {/* To Section */}
             <div className="space-y-2">
-              <Label htmlFor="cn-reason">Reason for Condemnation</Label>
-              <Textarea 
-                id="cn-reason" 
-                placeholder="Enter detailed reason for condemnation"
-                rows={5}
-              />
+              <Label className="font-semibold">To</Label>
+              <Input placeholder="The Office Commanding" />
+              <Input placeholder="Unit" className="mt-2" />
+              <Input placeholder="Station" className="mt-2" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="cn-inspection-date">Inspection Date</Label>
-                <Input id="cn-inspection-date" type="date" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="cn-recommendation">Recommendation</Label>
-                <Select>
-                  <SelectTrigger id="cn-recommendation">
-                    <SelectValue placeholder="Select recommendation" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="scrap">Scrap</SelectItem>
-                    <SelectItem value="rework">Rework</SelectItem>
-                    <SelectItem value="return_vendor">Return to Vendor</SelectItem>
-                  </SelectContent>
-                </Select>
+            {/* Reference */}
+            <div className="space-y-2">
+              <Label className="font-semibold">Reference: Your work order (I.A.F.O.-1370)</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="cn-ref-no">No.</Label>
+                  <Input id="cn-ref-no" placeholder="Enter reference number" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="cn-ref-date">Date</Label>
+                  <Input id="cn-ref-date" type="date" />
+                </div>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="cn-disposal-method">Proposed Disposal Method</Label>
-              <Textarea 
-                id="cn-disposal-method" 
-                placeholder="Enter proposed disposal method"
-                rows={3}
-              />
+            {/* Description */}
+            <div className="p-4 bg-muted rounded-lg">
+              <p className="text-sm">The following stores are advised <span className="font-bold">BLRIBER</span> due to fair/unfair wear & tear-</p>
             </div>
 
+            {/* Main Table */}
             <div className="space-y-2">
-              <Label htmlFor="cn-remarks">Remarks</Label>
-              <Textarea 
-                id="cn-remarks" 
-                placeholder="Additional remarks"
-                rows={2}
-              />
+              <Label className="font-semibold">Stores Details</Label>
+              <div className="border rounded-lg overflow-hidden">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-muted">
+                      <th className="p-2 text-left border-r">Regd No.</th>
+                      <th className="p-2 text-left border-r">Vocab Section</th>
+                      <th className="p-2 text-left border-r">Part No</th>
+                      <th className="p-2 text-left border-r">Nomenclature</th>
+                      <th className="p-2 text-left border-r">Qty</th>
+                      <th className="p-2 text-left">Reasons for sentence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5].map((row) => (
+                      <tr key={row} className="border-t">
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" type="number" /></td>
+                        <td className="p-2"><Input className="border-0" /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Misuse/Neglect Report */}
+            <div className="space-y-2">
+              <Label className="font-semibold">Misuse/ Neglect report has/ has not been initiated vide this office letter</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="cn-letter-no">No.</Label>
+                  <Input id="cn-letter-no" placeholder="Enter letter number" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="cn-letter-date">Date</Label>
+                  <Input id="cn-letter-date" type="date" />
+                </div>
+              </div>
+            </div>
+
+            {/* Signatures */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t">
+              <div className="space-y-2">
+                <Label>Inspection by:</Label>
+                <Input placeholder="Enter inspector name" />
+              </div>
+              <div className="space-y-2">
+                <Label>Officer Commanding</Label>
+                <Input placeholder="Enter officer name" />
+              </div>
             </div>
 
             <div className="flex justify-end">
@@ -512,107 +535,120 @@ export function ETDReportsStage() {
       {reportType === "rejection" && (
         <Card>
           <CardHeader>
-            <CardTitle>Rejection Slip</CardTitle>
+            <CardTitle className="text-center">
+              <div className="space-y-1">
+                <div className="text-sm">In lieu of IAF (EME) W-78</div>
+                <div className="text-xl font-bold">REJECT SLIP</div>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Header Fields */}
+            <div className="space-y-4 border-b pb-4">
               <div className="space-y-2">
-                <Label htmlFor="rj-slip-no">Rejection Slip No.</Label>
-                <Input id="rj-slip-no" placeholder="Enter slip number" />
+                <Label htmlFor="rj-army-hq">ARMY HQ SRL</Label>
+                <Input id="rj-army-hq" placeholder="Enter ARMY HQ SRL" />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-date">Date</Label>
-                <Input id="rj-date" type="date" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="rj-job-no">JOB NO.</Label>
+                  <Input id="rj-job-no" placeholder="Enter job number" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="rj-date">DATE</Label>
+                  <Input id="rj-date" type="date" />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-inspector">Rejected By</Label>
-                <Input id="rj-inspector" placeholder="Enter inspector name" />
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="rj-hull-no">Hull No.</Label>
-                <Input id="rj-hull-no" placeholder="Enter hull number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-part-no">Part No.</Label>
-                <Input id="rj-part-no" placeholder="Enter part number" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="rj-nomenclature">Nomenclature</Label>
-                <Input id="rj-nomenclature" placeholder="Enter nomenclature" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-supplier">Supplier/Vendor</Label>
-                <Input id="rj-supplier" placeholder="Enter supplier name" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="rj-equipment">EQUIPMENT</Label>
+                  <Input id="rj-equipment" placeholder="Enter equipment" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="rj-eng-no">NO/ ENG NO/ REGD NO.</Label>
+                  <Input id="rj-eng-no" placeholder="Enter number" />
+                </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="rj-quantity">Quantity Rejected</Label>
-                <Input id="rj-quantity" type="number" placeholder="Enter quantity" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-batch-no">Batch/Lot No.</Label>
-                <Input id="rj-batch-no" placeholder="Enter batch number" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-ohs-no">OHS No.</Label>
-                <Input id="rj-ohs-no" placeholder="Enter OHS number" />
-              </div>
-            </div>
-
+            {/* Main Table */}
             <div className="space-y-2">
-              <Label htmlFor="rj-reason">Reason for Rejection</Label>
-              <Textarea 
-                id="rj-reason" 
-                placeholder="Enter detailed reason for rejection"
-                rows={5}
-              />
+              <Label className="font-semibold">Rejection Details</Label>
+              <div className="border rounded-lg overflow-hidden">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-muted">
+                      <th className="p-2 text-left border-r w-16">Srl No</th>
+                      <th className="p-2 text-left border-r">Rejects</th>
+                      <th className="p-2 text-left border-r">Reason found</th>
+                      <th className="p-2 text-left border-r" colSpan={3}>Requirement of spares</th>
+                      <th className="p-2 text-left">Remarks</th>
+                    </tr>
+                    <tr className="bg-muted/50">
+                      <th className="p-2 border-r"></th>
+                      <th className="p-2 border-r"></th>
+                      <th className="p-2 border-r"></th>
+                      <th className="p-2 text-left border-r text-xs">Sec/Pt No</th>
+                      <th className="p-2 text-left border-r text-xs">Designation</th>
+                      <th className="p-2 text-left border-r text-xs">Qty Required</th>
+                      <th className="p-2"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((row) => (
+                      <tr key={row} className="border-t">
+                        <td className="p-2 border-r"><Input className="border-0 text-center" value={row} readOnly /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" /></td>
+                        <td className="p-2 border-r"><Input className="border-0" type="number" /></td>
+                        <td className="p-2"><Input className="border-0" /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="rj-stage">Stage of Rejection</Label>
-                <Select>
-                  <SelectTrigger id="rj-stage">
-                    <SelectValue placeholder="Select stage" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="incoming">Incoming Inspection</SelectItem>
-                    <SelectItem value="in-process">In-Process</SelectItem>
-                    <SelectItem value="final">Final Inspection</SelectItem>
-                  </SelectContent>
-                </Select>
+            {/* Bottom Section */}
+            <div className="space-y-4 mt-6 pt-6 border-t">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Rejected by</Label>
+                  <Input placeholder="Enter name" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Signature</Label>
+                  <Input placeholder="Signature" />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="rj-disposition">Disposition</Label>
-                <Select>
-                  <SelectTrigger id="rj-disposition">
-                    <SelectValue placeholder="Select disposition" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="return_supplier">Return to Supplier</SelectItem>
-                    <SelectItem value="scrap">Scrap</SelectItem>
-                    <SelectItem value="rework">Rework</SelectItem>
-                    <SelectItem value="use_as_is">Use As-Is (Concession)</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Reject Slip No.</Label>
+                  <Input placeholder="Enter slip number" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Date</Label>
+                  <Input type="date" />
+                </div>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="rj-remarks">Remarks</Label>
-              <Textarea 
-                id="rj-remarks" 
-                placeholder="Additional remarks"
-                rows={2}
-              />
+            {/* Footer */}
+            <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t">
+              <div className="space-y-2">
+                <Label>Sec I/C</Label>
+                <Input placeholder="Enter name" />
+              </div>
+              <div className="space-y-2">
+                <Label>I/C QC</Label>
+                <Input placeholder="Enter name" />
+              </div>
+              <div className="space-y-2">
+                <Label>DGM (QC)</Label>
+                <Input placeholder="Enter name" />
+              </div>
             </div>
 
             <div className="flex justify-end">
