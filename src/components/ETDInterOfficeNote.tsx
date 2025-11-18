@@ -92,7 +92,7 @@ export function ETDInterOfficeNote() {
   const renderICVBMPFormat = () =>
   <div className="space-y-6">
       <div className="text-center space-y-4">
-        <div className="font-bold text-lg"></div>
+        <div className="font-bold text-lg !whitespace-pre-line"></div>
         <div className="flex justify-between items-start">
           <div className="text-left">142/TS/BMP-II/ETD</div>
           <div className="text-right space-y-1">
