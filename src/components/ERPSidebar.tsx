@@ -1,68 +1,68 @@
-"use client"
+"use client";
 
-import { Building2, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Building2, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ERPSidebarProps {
-  selectedDepartment: string
-  selectedStage: string
-  onDepartmentChange: (dept: string) => void
-  onStageChange: (stage: string) => void
+  selectedDepartment: string;
+  selectedStage: string;
+  onDepartmentChange: (dept: string) => void;
+  onStageChange: (stage: string) => void;
 }
 
 const departments = [
-  { id: "ETD", name: "ETD Department" },
-  { id: "ARMT", name: "ARMT Department" },
-  { id: "SRD", name: "SRD Department" },
-  { id: "INST", name: "INST Department" }
-]
+{ id: "ETD", name: "ETD Department" },
+{ id: "ARMT", name: "ARMT Department" },
+{ id: "SRD", name: "SRD Department" },
+{ id: "INST", name: "INST Department" }];
+
 
 const etdStages = [
-  { id: "HOME", name: "Home" },
-  { id: "PASSPORT", name: "Passport" },
-  { id: "STORE", name: "Store" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
-  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
-  { id: "REPORTS", name: "Reports" }
-]
+{ id: "HOME", name: "Home" },
+{ id: "PASSPORT", name: "Passport" },
+{ id: "STORE", name: "Store" },
+{ id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+{ id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
+{ id: "REPORTS", name: "Reports" }];
+
 
 const armtStages = [
-  { id: "HOME", name: "Home" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
-  { id: "STORE", name: "Store" },
-  { id: "PASSPORT", name: "Passport" },
-  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
-  { id: "REPORTS", name: "Reports" }
-]
+{ id: "HOME", name: "Home" },
+{ id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+{ id: "STORE", name: "Store" },
+{ id: "PASSPORT", name: "Passport" },
+{ id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
+{ id: "REPORTS", name: "Reports" }];
+
 
 const srdStages = [
-  { id: "HOME", name: "Home" },
-  { id: "PASSPORT", name: "Passport" },
-  { id: "STORE", name: "Store" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
-  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
-  { id: "REPORTS", name: "Reports" }
-]
+{ id: "HOME", name: "Home" },
+{ id: "PASSPORT", name: "Passport" },
+{ id: "STORE", name: "Store" },
+{ id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+{ id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
+{ id: "REPORTS", name: "Reports" }];
+
 
 const instStages = [
-  { id: "HOME", name: "Home" },
-  { id: "PASSPORT", name: "Passport" },
-  { id: "STORE", name: "Store" },
-  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
-  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
-  { id: "REPORTS", name: "Reports" }
-]
+{ id: "HOME", name: "Home" },
+{ id: "PASSPORT", name: "Passport" },
+{ id: "STORE", name: "Store" },
+{ id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+{ id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
+{ id: "REPORTS", name: "Reports" }];
 
-export function ERPSidebar({ 
-  selectedDepartment, 
+
+export function ERPSidebar({
+  selectedDepartment,
   selectedStage,
   onDepartmentChange,
-  onStageChange 
+  onStageChange
 }: ERPSidebarProps) {
-  const stages = selectedDepartment === "ARMT" ? armtStages 
-    : selectedDepartment === "SRD" ? srdStages
-    : selectedDepartment === "INST" ? instStages
-    : etdStages;
+  const stages = selectedDepartment === "ARMT" ? armtStages :
+  selectedDepartment === "SRD" ? srdStages :
+  selectedDepartment === "INST" ? instStages :
+  etdStages;
 
   return (
     <div className="w-64 border-r border-border bg-card h-screen overflow-y-auto">
@@ -79,48 +79,48 @@ export function ERPSidebar({
             Departments
           </h2>
           <div className="space-y-1">
-            {departments.map((dept) => (
-              <button
-                key={dept.id}
-                onClick={() => onDepartmentChange(dept.id)}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  selectedDepartment === dept.id
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-accent text-foreground"
-                )}
-              >
+            {departments.map((dept) =>
+            <button
+              key={dept.id}
+              onClick={() => onDepartmentChange(dept.id)}
+              className={cn(
+                "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                selectedDepartment === dept.id ?
+                "bg-primary text-primary-foreground" :
+                "hover:bg-accent text-foreground"
+              )}>
+
                 {dept.name}
                 <ChevronRight className="h-4 w-4" />
               </button>
-            ))}
+            )}
           </div>
         </div>
 
-        {selectedDepartment && (
-          <div>
-            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-              Stages
-            </h2>
+        {selectedDepartment &&
+        <div>
+            <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 !whitespace-pre-line">SECTIONS
+
+          </h2>
             <div className="space-y-1">
-              {stages.map((stage) => (
-                <button
-                  key={stage.id}
-                  onClick={() => onStageChange(stage.id)}
-                  className={cn(
-                    "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
-                    selectedStage === stage.id
-                      ? "bg-secondary text-secondary-foreground font-medium"
-                      : "hover:bg-accent text-foreground"
-                  )}
-                >
+              {stages.map((stage) =>
+            <button
+              key={stage.id}
+              onClick={() => onStageChange(stage.id)}
+              className={cn(
+                "w-full text-left px-3 py-2 rounded-md text-sm transition-colors",
+                selectedStage === stage.id ?
+                "bg-secondary text-secondary-foreground font-medium" :
+                "hover:bg-accent text-foreground"
+              )}>
+
                   {stage.name}
                 </button>
-              ))}
+            )}
             </div>
           </div>
-        )}
+        }
       </div>
-    </div>
-  )
+    </div>);
+
 }
