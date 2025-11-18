@@ -22,6 +22,7 @@ const etdStages = [
   { id: "PASSPORT", name: "Passport" },
   { id: "STORE", name: "Store" },
   { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
   { id: "REPORTS", name: "Reports" }
 ]
 
@@ -30,6 +31,7 @@ const armtStages = [
   { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
   { id: "STORE", name: "Store" },
   { id: "PASSPORT", name: "Passport" },
+  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
   { id: "REPORTS", name: "Reports" }
 ]
 
@@ -38,6 +40,7 @@ const srdStages = [
   { id: "PASSPORT", name: "Passport" },
   { id: "STORE", name: "Store" },
   { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
   { id: "REPORTS", name: "Reports" }
 ]
 
@@ -46,6 +49,7 @@ const instStages = [
   { id: "PASSPORT", name: "Passport" },
   { id: "STORE", name: "Store" },
   { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "INTER_OFFICE_NOTE", name: "Inter Office Note" },
   { id: "REPORTS", name: "Reports" }
 ]
 

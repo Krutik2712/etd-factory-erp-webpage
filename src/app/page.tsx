@@ -6,21 +6,25 @@ import { ETDHome } from "@/components/ETDHome"
 import { ETDPassportStage } from "@/components/ETDPassportStage"
 import { ETDStoreStage } from "@/components/ETDStoreStage"
 import { ETDStockStage } from "@/components/ETDStockStage"
+import { ETDInterOfficeNote } from "@/components/ETDInterOfficeNote"
 import { ETDReportsStage } from "@/components/ETDReportsStage"
 import { ARMTHome } from "@/components/ARMTHome"
 import { ARMTStockStage } from "@/components/ARMTStockStage"
 import { ARMTStoreStage } from "@/components/ARMTStoreStage"
 import { ARMTPassportStage } from "@/components/ARMTPassportStage"
+import { ARMTInterOfficeNote } from "@/components/ARMTInterOfficeNote"
 import { ARMTReportsStage } from "@/components/ARMTReportsStage"
 import { SRDHome } from "@/components/SRDHome"
 import { SRDPassportStage } from "@/components/SRDPassportStage"
 import { SRDStoreStage } from "@/components/SRDStoreStage"
 import { SRDStockStage } from "@/components/SRDStockStage"
+import { SRDInterOfficeNote } from "@/components/SRDInterOfficeNote"
 import { SRDReportsStage } from "@/components/SRDReportsStage"
 import { INSTHome } from "@/components/INSTHome"
 import { INSTPassportStage } from "@/components/INSTPassportStage"
 import { INSTStoreStage } from "@/components/INSTStoreStage"
 import { INSTStockStage } from "@/components/INSTStockStage"
+import { INSTInterOfficeNote } from "@/components/INSTInterOfficeNote"
 import { INSTReportsStage } from "@/components/INSTReportsStage"
 import { QAInchargeDashboard } from "@/components/QAInchargeDashboard"
 import { Building2, LayoutDashboard } from "lucide-react"
@@ -98,6 +102,9 @@ export default function Home() {
               {selectedDepartment === "ETD" && selectedStage === "STOCK_AVAILABILITY" && (
                 <ETDStockStage />
               )}
+              {selectedDepartment === "ETD" && selectedStage === "INTER_OFFICE_NOTE" && (
+                <ETDInterOfficeNote />
+              )}
               {selectedDepartment === "ETD" && selectedStage === "REPORTS" && (
                 <ETDReportsStage />
               )}
@@ -112,6 +119,9 @@ export default function Home() {
               )}
               {selectedDepartment === "ARMT" && selectedStage === "PASSPORT" && (
                 <ARMTPassportStage />
+              )}
+              {selectedDepartment === "ARMT" && selectedStage === "INTER_OFFICE_NOTE" && (
+                <ARMTInterOfficeNote />
               )}
               {selectedDepartment === "ARMT" && selectedStage === "REPORTS" && (
                 <ARMTReportsStage />
@@ -128,6 +138,9 @@ export default function Home() {
               {selectedDepartment === "SRD" && selectedStage === "STOCK_AVAILABILITY" && (
                 <SRDStockStage />
               )}
+              {selectedDepartment === "SRD" && selectedStage === "INTER_OFFICE_NOTE" && (
+                <SRDInterOfficeNote />
+              )}
               {selectedDepartment === "SRD" && selectedStage === "REPORTS" && (
                 <SRDReportsStage />
               )}
@@ -142,6 +155,9 @@ export default function Home() {
               )}
               {selectedDepartment === "INST" && selectedStage === "STOCK_AVAILABILITY" && (
                 <INSTStockStage />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "INTER_OFFICE_NOTE" && (
+                <INSTInterOfficeNote />
               )}
               {selectedDepartment === "INST" && selectedStage === "REPORTS" && (
                 <INSTReportsStage />
