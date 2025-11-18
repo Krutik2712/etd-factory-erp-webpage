@@ -20,7 +20,7 @@ interface WorkOrder {
   dueDate: string
   completedOn: string | null
   delayedBy: number | null
-  status: "Completed" | "Ongoing" | "Stopped"
+  status: "Completed" | "Ongoing" | "Delayed"
   manPowers: number
   manHours: number
   stopReason?: string
@@ -71,7 +71,7 @@ const workOrders: WorkOrder[] = [
     dueDate: "2024-02-05",
     completedOn: null,
     delayedBy: 10,
-    status: "Stopped",
+    status: "Delayed",
     manPowers: 7,
     manHours: 140,
     stopReason: "Shortage of Spares"
@@ -113,7 +113,7 @@ export function INSTHome() {
         return "bg-green-500 text-white"
       case "Ongoing":
         return "bg-blue-500 text-white"
-      case "Stopped":
+      case "Delayed":
         return "bg-red-500 text-white"
     }
   }
@@ -174,9 +174,9 @@ export function INSTHome() {
         <div className="bg-card border border-border rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Stopped</p>
+              <p className="text-sm text-muted-foreground">Delayed</p>
               <p className="text-3xl font-bold text-red-500">
-                {workOrders.filter(wo => wo.status === "Stopped").length}
+                {workOrders.filter(wo => wo.status === "Delayed").length}
               </p>
             </div>
           </div>
@@ -237,7 +237,7 @@ export function INSTHome() {
                 <Users className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Man Powers Required</p>
+                <p className="text-sm text-muted-foreground">Total Man Powers Required Available</p>
                 <p className="text-2xl font-bold">{totalManPowers}</p>
               </div>
             </div>
@@ -299,8 +299,8 @@ export function INSTHome() {
                 </div>
               </div>
 
-              {/* Stop Reason Section - Only show for Stopped orders */}
-              {selectedOrder.status === "Stopped" && (
+              {/* Stop Reason Section - Only show for Delayed orders */}
+              {selectedOrder.status === "Delayed" && (
                 <div className="border-t border-border pt-4 mt-4">
                   <div className="flex items-center gap-2 mb-3">
                     <AlertCircle className="h-5 w-5 text-red-500" />

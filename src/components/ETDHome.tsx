@@ -8,8 +8,8 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow } from
-"@/components/ui/table";
+  TableRow,
+} from "@/components/ui/table";
 import { Home, Users, Clock, AlertCircle } from "lucide-react";
 
 interface WorkOrder {
@@ -27,78 +27,78 @@ interface WorkOrder {
 }
 
 const workOrders: WorkOrder[] = [
-{
-  orderNo: "WO-ETD-001",
-  workOrderType: "MOS",
-  referenceId: "REF-ETD-2024-001",
-  dateOfIssue: "2024-01-15",
-  dueDate: "2024-02-15",
-  completedOn: null,
-  delayedBy: null,
-  status: "Ongoing",
-  manPowers: 12,
-  manHours: 240
-},
-{
-  orderNo: "WO-ETD-002",
-  workOrderType: "LM",
-  referenceId: "REF-ETD-2024-002",
-  dateOfIssue: "2024-01-16",
-  dueDate: "2024-02-16",
-  completedOn: null,
-  delayedBy: null,
-  status: "Ongoing",
-  manPowers: 15,
-  manHours: 300
-},
-{
-  orderNo: "WO-ETD-003",
-  workOrderType: "A-IN-U",
-  referenceId: "REF-ETD-2024-003",
-  dateOfIssue: "2024-01-14",
-  dueDate: "2024-02-10",
-  completedOn: "2024-02-08",
-  delayedBy: 0,
-  status: "Completed",
-  manPowers: 10,
-  manHours: 200
-},
-{
-  orderNo: "WO-ETD-004",
-  workOrderType: "MISC-ADHOC",
-  referenceId: "REF-ETD-2024-004",
-  dateOfIssue: "2024-01-13",
-  dueDate: "2024-02-01",
-  completedOn: null,
-  delayedBy: 16,
-  status: "Delayed",
-  manPowers: 8,
-  manHours: 160,
-  stopReason: "Machine Breakdown"
-},
-{
-  orderNo: "WO-ETD-005",
-  workOrderType: "DRWO",
-  referenceId: "REF-ETD-2024-005",
-  dateOfIssue: "2024-01-12",
-  dueDate: "2024-02-05",
-  completedOn: "2024-02-04",
-  delayedBy: 0,
-  status: "Completed",
-  manPowers: 14,
-  manHours: 280
-}];
-
+  {
+    orderNo: "WO-ETD-001",
+    workOrderType: "MOS",
+    referenceId: "REF-ETD-2024-001",
+    dateOfIssue: "2024-01-15",
+    dueDate: "2024-02-15",
+    completedOn: null,
+    delayedBy: null,
+    status: "Ongoing",
+    manPowers: 12,
+    manHours: 240
+  },
+  {
+    orderNo: "WO-ETD-002",
+    workOrderType: "LM",
+    referenceId: "REF-ETD-2024-002",
+    dateOfIssue: "2024-01-16",
+    dueDate: "2024-02-16",
+    completedOn: null,
+    delayedBy: null,
+    status: "Ongoing",
+    manPowers: 15,
+    manHours: 300
+  },
+  {
+    orderNo: "WO-ETD-003",
+    workOrderType: "A-IN-U",
+    referenceId: "REF-ETD-2024-003",
+    dateOfIssue: "2024-01-14",
+    dueDate: "2024-02-10",
+    completedOn: "2024-02-08",
+    delayedBy: 0,
+    status: "Completed",
+    manPowers: 10,
+    manHours: 200
+  },
+  {
+    orderNo: "WO-ETD-004",
+    workOrderType: "MISC-ADHOC",
+    referenceId: "REF-ETD-2024-004",
+    dateOfIssue: "2024-01-13",
+    dueDate: "2024-02-01",
+    completedOn: null,
+    delayedBy: 16,
+    status: "Delayed",
+    manPowers: 8,
+    manHours: 160,
+    stopReason: "Machine Breakdown"
+  },
+  {
+    orderNo: "WO-ETD-005",
+    workOrderType: "DRWO",
+    referenceId: "REF-ETD-2024-005",
+    dateOfIssue: "2024-01-12",
+    dueDate: "2024-02-05",
+    completedOn: "2024-02-04",
+    delayedBy: 0,
+    status: "Completed",
+    manPowers: 14,
+    manHours: 280
+  }
+];
 
 const STOP_REASONS = [
-"Worker not available",
-"Machine Breakdown",
-"Shortage of Spares",
-"Power Outage",
-"Quality Issues",
-"Material Delay",
-"Other"];
-
+  "Worker not available",
+  "Machine Breakdown",
+  "Shortage of Spares",
+  "Power Outage",
+  "Quality Issues",
+  "Material Delay",
+  "Other"
+];
 
 const WORK_ORDER_TYPES = ["MOS", "LM", "A-IN-U", "MISC-ADHOC", "DRWO", "PAY-A-IN-U"] as const;
 
@@ -113,7 +113,7 @@ export function ETDHome() {
         return "bg-green-500 text-white";
       case "Ongoing":
         return "bg-blue-500 text-white";
-      case "Stopped":
+      case "Delayed":
         return "bg-red-500 text-white";
     }
   };
@@ -174,9 +174,9 @@ export function ETDHome() {
         <div className="bg-card border border-border rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Stopped</p>
+              <p className="text-sm text-muted-foreground">Delayed</p>
               <p className="text-3xl font-bold text-red-500">
-                {workOrders.filter((wo) => wo.status === "Stopped").length}
+                {workOrders.filter((wo) => wo.status === "Delayed").length}
               </p>
             </div>
           </div>
@@ -203,12 +203,12 @@ export function ETDHome() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {workOrders.map((order) =>
-              <TableRow
-                key={order.orderNo}
-                className="cursor-pointer hover:bg-muted/50"
-                onClick={() => handleOrderClick(order)}>
-
+              {workOrders.map((order) => (
+                <TableRow
+                  key={order.orderNo}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => handleOrderClick(order)}
+                >
                   <TableCell className="font-medium">{order.orderNo}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{order.workOrderType}</Badge>
@@ -219,12 +219,12 @@ export function ETDHome() {
                   <TableCell>{order.completedOn || "-"}</TableCell>
                   <TableCell>{order.delayedBy !== null ? `${order.delayedBy} days` : "-"}</TableCell>
                   <TableCell>
-                    <Badge className="!whitespace-pre-line">
+                    <Badge className={getStatusColor(order.status)}>
                       {order.status}
                     </Badge>
                   </TableCell>
                 </TableRow>
-              )}
+              ))}
             </TableBody>
           </Table>
         </div>
@@ -237,7 +237,7 @@ export function ETDHome() {
                 <Users className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Man Powers Required</p>
+                <p className="text-sm text-muted-foreground">Total Man Powers Required Available</p>
                 <p className="text-2xl font-bold">{totalManPowers}</p>
               </div>
             </div>
@@ -255,8 +255,8 @@ export function ETDHome() {
       </div>
 
       {/* Work Order Details Modal/Section */}
-      {selectedOrder &&
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setSelectedOrder(null)}>
+      {selectedOrder && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setSelectedOrder(null)}>
           <div className="bg-card border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="p-6 border-b border-border">
               <h2 className="text-2xl font-bold">Work Order Details</h2>
@@ -299,64 +299,64 @@ export function ETDHome() {
                 </div>
               </div>
 
-              {/* Stop Reason Section - Only show for Stopped orders */}
-              {selectedOrder.status === "Stopped" &&
-            <div className="border-t border-border pt-4 mt-4">
+              {/* Stop Reason Section - Only show for Delayed orders */}
+              {selectedOrder.status === "Delayed" && (
+                <div className="border-t border-border pt-4 mt-4">
                   <div className="flex items-center gap-2 mb-3">
                     <AlertCircle className="h-5 w-5 text-red-500" />
                     <h3 className="text-lg font-semibold">Stop Reason</h3>
                   </div>
                   <div className="space-y-3">
-                    {isEditingReason ?
-                <>
+                    {isEditingReason ? (
+                      <>
                         <select
-                    value={editableReason}
-                    onChange={(e) => setEditableReason(e.target.value)}
-                    className="w-full p-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
-
+                          value={editableReason}
+                          onChange={(e) => setEditableReason(e.target.value)}
+                          className="w-full p-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                        >
                           <option value="">Select a reason...</option>
-                          {STOP_REASONS.map((reason) =>
-                    <option key={reason} value={reason}>
+                          {STOP_REASONS.map((reason) => (
+                            <option key={reason} value={reason}>
                               {reason}
                             </option>
-                    )}
+                          ))}
                         </select>
                         <div className="flex gap-2">
                           <button
-                      onClick={handleSubmitReason}
-                      className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
-
+                            onClick={handleSubmitReason}
+                            className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                          >
                             Submit
                           </button>
                           <button
-                      onClick={() => {
-                        setIsEditingReason(false);
-                        setEditableReason(selectedOrder.stopReason || "");
-                      }}
-                      className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors">
-
+                            onClick={() => {
+                              setIsEditingReason(false);
+                              setEditableReason(selectedOrder.stopReason || "");
+                            }}
+                            className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                          >
                             Cancel
                           </button>
                         </div>
-                      </> :
-
-                <>
+                      </>
+                    ) : (
+                      <>
                         <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
                           <p className="text-sm font-medium text-red-900 dark:text-red-100">
                             {selectedOrder.stopReason || "No reason specified"}
                           </p>
                         </div>
                         <button
-                    onClick={() => setIsEditingReason(true)}
-                    className="w-full bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors">
-
+                          onClick={() => setIsEditingReason(true)}
+                          className="w-full bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                        >
                           Edit Reason
                         </button>
                       </>
-                }
+                    )}
                   </div>
                 </div>
-            }
+              )}
               
               <div className="border-t border-border pt-4 mt-4">
                 <h3 className="text-lg font-semibold mb-3">Resource Requirements</h3>
@@ -381,26 +381,26 @@ export function ETDHome() {
             <div className="p-6 border-t border-border">
               <div className="flex gap-3">
                 <button
-                onClick={() => setSelectedOrder(null)}
-                className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors">
-
+                  onClick={() => setSelectedOrder(null)}
+                  className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                >
                   Close
                 </button>
                 <button
-                onClick={() => {
-                  console.log(`Submitting work order: ${selectedOrder?.orderNo}`);
-                  // Handle submit logic here
-                  setSelectedOrder(null);
-                }}
-                className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
-
+                  onClick={() => {
+                    console.log(`Submitting work order: ${selectedOrder?.orderNo}`);
+                    // Handle submit logic here
+                    setSelectedOrder(null);
+                  }}
+                  className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                >
                   Submit
                 </button>
               </div>
             </div>
           </div>
         </div>
-      }
-    </div>);
-
+      )}
+    </div>
+  );
 }
