@@ -17,6 +17,11 @@ import { SRDPassportStage } from "@/components/SRDPassportStage"
 import { SRDStoreStage } from "@/components/SRDStoreStage"
 import { SRDStockStage } from "@/components/SRDStockStage"
 import { SRDReportsStage } from "@/components/SRDReportsStage"
+import { INSTHome } from "@/components/INSTHome"
+import { INSTPassportStage } from "@/components/INSTPassportStage"
+import { INSTStoreStage } from "@/components/INSTStoreStage"
+import { INSTStockStage } from "@/components/INSTStockStage"
+import { INSTReportsStage } from "@/components/INSTReportsStage"
 import { QAInchargeDashboard } from "@/components/QAInchargeDashboard"
 import { Building2, LayoutDashboard } from "lucide-react"
 
@@ -125,6 +130,21 @@ export default function Home() {
               )}
               {selectedDepartment === "SRD" && selectedStage === "REPORTS" && (
                 <SRDReportsStage />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "HOME" && (
+                <INSTHome />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "PASSPORT" && (
+                <INSTPassportStage />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "STORE" && (
+                <INSTStoreStage />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "STOCK_AVAILABILITY" && (
+                <INSTStockStage />
+              )}
+              {selectedDepartment === "INST" && selectedStage === "REPORTS" && (
+                <INSTReportsStage />
               )}
             </div>
           </main>

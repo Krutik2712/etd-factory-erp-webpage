@@ -13,7 +13,8 @@ interface ERPSidebarProps {
 const departments = [
   { id: "ETD", name: "ETD Department" },
   { id: "ARMT", name: "ARMT Department" },
-  { id: "SRD", name: "SRD Department" }
+  { id: "SRD", name: "SRD Department" },
+  { id: "INST", name: "INST Department" }
 ]
 
 const etdStages = [
@@ -40,6 +41,14 @@ const srdStages = [
   { id: "REPORTS", name: "Reports" }
 ]
 
+const instStages = [
+  { id: "HOME", name: "Home" },
+  { id: "PASSPORT", name: "Passport" },
+  { id: "STORE", name: "Store" },
+  { id: "STOCK_AVAILABILITY", name: "Stock Availability" },
+  { id: "REPORTS", name: "Reports" }
+]
+
 export function ERPSidebar({ 
   selectedDepartment, 
   selectedStage,
@@ -48,6 +57,7 @@ export function ERPSidebar({
 }: ERPSidebarProps) {
   const stages = selectedDepartment === "ARMT" ? armtStages 
     : selectedDepartment === "SRD" ? srdStages
+    : selectedDepartment === "INST" ? instStages
     : etdStages;
 
   return (
