@@ -388,13 +388,13 @@ export function ETDHome() {
                 </button>
                 <button
                   onClick={() => {
-                    console.log(`Submitting work order: ${selectedOrder?.orderNo}`);
-                    // Handle submit logic here
-                    setSelectedOrder(null);
+                    console.log(`Marking work order as completed: ${selectedOrder?.orderNo}`)
+                    // Handle mark as completed logic here
+                    setSelectedOrder(null)
                   }}
                   className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
                 >
-                  Submit
+                  Mark as Completed
                 </button>
               </div>
             </div>
