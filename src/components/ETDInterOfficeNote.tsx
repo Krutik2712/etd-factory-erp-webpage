@@ -101,7 +101,7 @@ export function ETDInterOfficeNote() {
             </div>
           </div>
         </div>
-        <div className="font-bold text-base underline">
+        <div className="font-bold text-base underline !whitespace-pre-line">
 
       </div>
       </div>
