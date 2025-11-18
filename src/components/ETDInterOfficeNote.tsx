@@ -10,17 +10,23 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from
-"@/components/ui/select";
-import { FileText, Plus, Trash2 } from "lucide-react";
+  SelectValue,
+} from "@/components/ui/select";
+import { FileText, Plus, Trash2, Eye } from "lucide-react";
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow } from
-"@/components/ui/table";
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface InstrumentRow {
   id: string;
@@ -39,7 +45,6 @@ export function ETDInterOfficeNote() {
   const [passportSerNo, setPassportSerNo] = useState("");
   const [date, setDate] = useState("");
   const [tankBANo, setTankBANo] = useState("");
-  const [vehicleNo, setVehicleNo] = useState("");
   const [cmtNo, setCmtNo] = useState("");
   const [sec, setSec] = useState("");
   
@@ -51,6 +56,8 @@ export function ETDInterOfficeNote() {
   const [rows, setRows] = useState<InstrumentRow[]>([
     { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "" }
   ]);
+
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleSendToApproval = () => {
     alert("Document sent to approval!");
@@ -82,8 +89,8 @@ export function ETDInterOfficeNote() {
   };
 
   // Render ICV-BMP-II format
-  const renderICVBMPFormat = () =>
-  <div className="space-y-6">
+  const renderICVBMPFormat = () => (
+    <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">ETD SECTION</div>
         <div className="flex justify-between items-start">
@@ -92,19 +99,19 @@ export function ETDInterOfficeNote() {
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-              value={passportSerNo}
-              onChange={(e) => setPassportSerNo(e.target.value)}
-              className="w-40" />
-
+                value={passportSerNo}
+                onChange={(e) => setPassportSerNo(e.target.value)}
+                className="w-40"
+              />
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-40" />
-
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-40"
+              />
             </div>
           </div>
         </div>
@@ -163,8 +170,8 @@ export function ETDInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) =>
-          <TableRow key={row.id}>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell className="text-sm">{row.ohsNo || "-"}</TableCell>
                 <TableCell className="text-sm">{row.partNo || "-"}</TableCell>
@@ -173,28 +180,30 @@ export function ETDInterOfficeNote() {
                 <TableCell className="text-sm">{row.qty || "-"}</TableCell>
                 <TableCell>
                   <Input
-                value={row.regdNo}
-                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                className="w-full" />
+                    value={row.regdNo}
+                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.remark}
-                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                className="w-full" />
+                    value={row.remark}
+                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => deleteRow(row.id)}
-                disabled={rows.length === 1}>
-
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => deleteRow(row.id)}
+                    disabled={rows.length === 1}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-          )}
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -204,17 +213,21 @@ export function ETDInterOfficeNote() {
         Add Row
       </Button>
 
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-end gap-3 pt-4">
+        <Button onClick={() => setShowPreview(true)} variant="outline" size="lg">
+          <Eye className="h-4 w-4 mr-2" />
+          Preview
+        </Button>
         <Button onClick={handleSendToApproval} size="lg">
           Send to Approval
         </Button>
       </div>
-    </div>;
-
+    </div>
+  );
 
   // Render CMT Tank format
-  const renderCMTFormat = () =>
-  <div className="space-y-6">
+  const renderCMTFormat = () => (
+    <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">ETD SECTION</div>
         <div className="flex justify-between items-start">
@@ -223,48 +236,45 @@ export function ETDInterOfficeNote() {
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-              value={passportSerNo}
-              onChange={(e) => setPassportSerNo(e.target.value)}
-              className="w-40" />
-
+                value={passportSerNo}
+                onChange={(e) => setPassportSerNo(e.target.value)}
+                className="w-40"
+              />
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-40" />
-
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-40"
+              />
             </div>
           </div>
         </div>
-        <div className="font-bold text-base underline !whitespace-pre-line">
-
-      </div>
       </div>
 
       <div className="space-y-2">
         <div className="text-sm">
           1. The following overhauled instruments of CMT Tank BA No{" "}
           <Input
-          value={tankBANo}
-          onChange={(e) => setTankBANo(e.target.value)}
-          className="inline-block w-48 mx-1" />
-        {" "}
-          overhauled CMT No.{" "}
+            value={tankBANo}
+            onChange={(e) => setTankBANo(e.target.value)}
+            className="inline-block w-48 mx-1"
+          />
+          {" "}overhauled CMT No.{" "}
           <Input
-          value={cmtNo}
-          onChange={(e) => setCmtNo(e.target.value)}
-          className="inline-block w-48 mx-1" />
-        {" "}
-          Sec{" "}
+            value={cmtNo}
+            onChange={(e) => setCmtNo(e.target.value)}
+            className="inline-block w-48 mx-1"
+          />
+          {" "}Sec{" "}
           <Input
-          value={sec}
-          onChange={(e) => setSec(e.target.value)}
-          className="inline-block w-32 mx-1" />
-        {" "}
-          are fwd herewith.
+            value={sec}
+            onChange={(e) => setSec(e.target.value)}
+            className="inline-block w-32 mx-1"
+          />
+          {" "}are fwd herewith.
         </div>
       </div>
 
@@ -282,56 +292,56 @@ export function ETDInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) =>
-          <TableRow key={row.id}>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                value={row.partNo}
-                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                className="w-full" />
-
+                    value={row.partNo}
+                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.instruments}
-                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                className="w-full" />
-
+                    value={row.instruments}
+                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.qty}
-                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                className="w-full" />
-
+                    value={row.qty}
+                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.regdNo}
-                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                className="w-full" />
-
+                    value={row.regdNo}
+                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.remark}
-                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                className="w-full" />
-
+                    value={row.remark}
+                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                    className="w-full"
+                  />
                 </TableCell>
                 <TableCell>
                   <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => deleteRow(row.id)}
-                disabled={rows.length === 1}>
-
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => deleteRow(row.id)}
+                    disabled={rows.length === 1}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-          )}
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -341,13 +351,140 @@ export function ETDInterOfficeNote() {
         Add Row
       </Button>
 
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-end gap-3 pt-4">
+        <Button onClick={() => setShowPreview(true)} variant="outline" size="lg">
+          <Eye className="h-4 w-4 mr-2" />
+          Preview
+        </Button>
         <Button onClick={handleSendToApproval} size="lg">
           Send to Approval
         </Button>
       </div>
-    </div>;
+    </div>
+  );
 
+  // Preview Dialog Content for ICV-BMP-II/IIK
+  const renderICVBMPPreview = () => (
+    <div className="space-y-6 p-6 bg-white text-black">
+      <div className="text-center space-y-2 border-b-2 border-black pb-4">
+        <div className="font-bold text-xl">ETD SECTION</div>
+        <div className="flex justify-between items-start">
+          <div className="text-left font-semibold">142/TS/BMP-II/ETD</div>
+          <div className="text-right space-y-1">
+            <div>
+              Passport Ser No: <span className="font-semibold">{passportSerNo || "______"}</span>
+            </div>
+            <div>
+              Date: <span className="font-semibold">{date || "______"}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-sm">
+        1. The following overhauled instruments of ICV-BMP-II are fwd herewith.
+      </div>
+
+      <div className="space-y-2 bg-gray-50 p-3 rounded border border-gray-300">
+        <div className="grid grid-cols-3 gap-4 text-sm">
+          <div>
+            <span className="font-semibold">BA No:</span> {baNo || "______"}
+          </div>
+          <div>
+            <span className="font-semibold">PT No:</span> {ptNo || "______"}
+          </div>
+          <div>
+            <span className="font-semibold">Section:</span> {section || "______"}
+          </div>
+        </div>
+      </div>
+
+      <div className="border-2 border-black">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-black bg-gray-100">
+              <th className="border-r border-black p-2 text-center">SR</th>
+              <th className="border-r border-black p-2 text-center">OHS NO</th>
+              <th className="border-r border-black p-2 text-center">PART NO</th>
+              <th className="border-r border-black p-2 text-center">DATE OF ISSUE</th>
+              <th className="border-r border-black p-2 text-center">INSTRUMENTS</th>
+              <th className="border-r border-black p-2 text-center">QTY</th>
+              <th className="border-r border-black p-2 text-center">REGD NO</th>
+              <th className="p-2 text-center">REMARK</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.id} className="border-b border-black">
+                <td className="border-r border-black p-2 text-center">{row.srNo}</td>
+                <td className="border-r border-black p-2 text-center">{row.ohsNo || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.partNo || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.dateOfIssue || "-"}</td>
+                <td className="border-r border-black p-2">{row.instruments || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.qty || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.regdNo || "-"}</td>
+                <td className="p-2">{row.remark || "-"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
+  // Preview Dialog Content for CMT Tank
+  const renderCMTPreview = () => (
+    <div className="space-y-6 p-6 bg-white text-black">
+      <div className="text-center space-y-2 border-b-2 border-black pb-4">
+        <div className="font-bold text-xl">ETD SECTION</div>
+        <div className="flex justify-between items-start">
+          <div className="text-left font-semibold">142/TS/CMT/ETD</div>
+          <div className="text-right space-y-1">
+            <div>
+              Passport Ser No: <span className="font-semibold">{passportSerNo || "______"}</span>
+            </div>
+            <div>
+              Date: <span className="font-semibold">{date || "______"}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-sm">
+        1. The following overhauled instruments of CMT Tank BA No{" "}
+        <span className="font-semibold">{tankBANo || "______"}</span> overhauled CMT No.{" "}
+        <span className="font-semibold">{cmtNo || "______"}</span> Sec{" "}
+        <span className="font-semibold">{sec || "______"}</span> are fwd herewith.
+      </div>
+
+      <div className="border-2 border-black">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-black bg-gray-100">
+              <th className="border-r border-black p-2 text-center">SR NO</th>
+              <th className="border-r border-black p-2 text-center">PART NO</th>
+              <th className="border-r border-black p-2 text-center">INSTRUMENTS</th>
+              <th className="border-r border-black p-2 text-center">QTY</th>
+              <th className="border-r border-black p-2 text-center">REGD NO</th>
+              <th className="p-2 text-center">REMARK</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.id} className="border-b border-black">
+                <td className="border-r border-black p-2 text-center">{row.srNo}</td>
+                <td className="border-r border-black p-2 text-center">{row.partNo || "-"}</td>
+                <td className="border-r border-black p-2">{row.instruments || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.qty || "-"}</td>
+                <td className="border-r border-black p-2 text-center">{row.regdNo || "-"}</td>
+                <td className="p-2">{row.remark || "-"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -380,13 +517,24 @@ export function ETDInterOfficeNote() {
 
           {selectedTank === "icv-bmp-ii-iik" && renderICVBMPFormat()}
           {selectedTank === "cmt-tank" && renderCMTFormat()}
-          {selectedTank === "tisk-component" &&
-          <div className="text-center text-muted-foreground py-8">
+          {selectedTank === "tisk-component" && (
+            <div className="text-center text-muted-foreground py-8">
               Format for TISK component coming soon...
             </div>
-          }
+          )}
         </CardContent>
       </Card>
-    </div>);
 
+      {/* Preview Dialog */}
+      <Dialog open={showPreview} onOpenChange={setShowPreview}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Document Preview</DialogTitle>
+          </DialogHeader>
+          {selectedTank === "icv-bmp-ii-iik" && renderICVBMPPreview()}
+          {selectedTank === "cmt-tank" && renderCMTPreview()}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }
