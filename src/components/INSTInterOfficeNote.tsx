@@ -25,11 +25,9 @@ import {
 interface InstrumentRow {
   id: string;
   srNo: string;
-  baNo: string;
-  ptNo: string;
-  section: string;
   ohsNo: string;
   partNo: string;
+  dateOfIssue: string;
   instruments: string;
   qty: string;
   regdNo: string;
@@ -44,9 +42,14 @@ export function INSTInterOfficeNote() {
   const [vehicleNo, setVehicleNo] = useState("");
   const [cmtNo, setCmtNo] = useState("");
   const [sec, setSec] = useState("");
+  
+  // Fields for ICV-BMP-II/IIK format
+  const [baNo, setBaNo] = useState("");
+  const [ptNo, setPtNo] = useState("");
+  const [section, setSection] = useState("");
 
   const [rows, setRows] = useState<InstrumentRow[]>([
-    { id: "1", srNo: "1", baNo: "", ptNo: "", section: "", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" }
+    { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "" }
   ]);
 
   const handleSendToApproval = () => {
@@ -57,11 +60,9 @@ export function INSTInterOfficeNote() {
     const newRow: InstrumentRow = {
       id: Date.now().toString(),
       srNo: (rows.length + 1).toString(),
-      baNo: "",
-      ptNo: "",
-      section: "",
       ohsNo: "",
       partNo: "",
+      dateOfIssue: "",
       instruments: "",
       qty: "",
       regdNo: "",
@@ -108,9 +109,6 @@ export function INSTInterOfficeNote() {
             </div>
           </div>
         </div>
-        <div className="font-bold text-base underline !whitespace-pre-line">
-
-      </div>
       </div>
 
       <div className="space-y-2">
@@ -119,16 +117,45 @@ export function INSTInterOfficeNote() {
         </div>
       </div>
 
+      {/* BA No., PT No., Section fields above table */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg">
+        <div className="space-y-2">
+          <Label htmlFor="ba-no">BA No.</Label>
+          <Input
+            id="ba-no"
+            value={baNo}
+            onChange={(e) => setBaNo(e.target.value)}
+            placeholder="Enter BA No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="pt-no">PT No.</Label>
+          <Input
+            id="pt-no"
+            value={ptNo}
+            onChange={(e) => setPtNo(e.target.value)}
+            placeholder="Enter PT No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="section">Section</Label>
+          <Input
+            id="section"
+            value={section}
+            onChange={(e) => setSection(e.target.value)}
+            placeholder="Enter Section"
+          />
+        </div>
+      </div>
+
       <div className="border rounded-lg overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead className="w-12">SR</TableHead>
-              <TableHead className="w-24">BA No.</TableHead>
-              <TableHead className="w-24">PT No.</TableHead>
-              <TableHead className="w-24">Section</TableHead>
-              <TableHead className="w-20">OHS No</TableHead>
+              <TableHead className="w-24">OHS NO</TableHead>
               <TableHead className="w-32">PART NO</TableHead>
+              <TableHead className="w-32">DATE OF ISSUE</TableHead>
               <TableHead>INSTRUMENTS</TableHead>
               <TableHead className="w-16">QTY</TableHead>
               <TableHead className="w-24">REGD NO</TableHead>
@@ -140,65 +167,22 @@ export function INSTInterOfficeNote() {
             {rows.map((row) =>
           <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
-                <TableCell>
-                  <Input
-                value={row.baNo}
-                onChange={(e) => updateRow(row.id, "baNo", e.target.value)}
-                className="w-full" />
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.ptNo}
-                onChange={(e) => updateRow(row.id, "ptNo", e.target.value)}
-                className="w-full" />
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.section}
-                onChange={(e) => updateRow(row.id, "section", e.target.value)}
-                className="w-full" />
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.ohsNo}
-                onChange={(e) => updateRow(row.id, "ohsNo", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.partNo}
-                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.instruments}
-                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.qty}
-                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
+                <TableCell className="text-sm">{row.ohsNo || "-"}</TableCell>
+                <TableCell className="text-sm">{row.partNo || "-"}</TableCell>
+                <TableCell className="text-sm">{row.dateOfIssue || "-"}</TableCell>
+                <TableCell className="text-sm">{row.instruments || "-"}</TableCell>
+                <TableCell className="text-sm">{row.qty || "-"}</TableCell>
                 <TableCell>
                   <Input
                 value={row.regdNo}
                 onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Input
                 value={row.remark}
                 onChange={(e) => updateRow(row.id, "remark", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Button
