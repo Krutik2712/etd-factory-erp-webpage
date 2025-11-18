@@ -32,6 +32,10 @@ interface InstrumentRow {
   qty: string;
   regdNo: string;
   remark: string;
+  date: string;
+  defi: string;
+  availableItems: string;
+  qaRemark: string;
 }
 
 export function INSTInterOfficeNote() {
@@ -48,8 +52,13 @@ export function INSTInterOfficeNote() {
   const [ptNo, setPtNo] = useState("");
   const [section, setSection] = useState("");
 
+  // Fields for CMT TANK format
+  const [cmtBaNo, setCmtBaNo] = useState("");
+  const [cmtPtNo, setCmtPtNo] = useState("");
+  const [cmtSection, setCmtSection] = useState("");
+
   const [rows, setRows] = useState<InstrumentRow[]>([
-    { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "" }
+    { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "", date: "", defi: "", availableItems: "", qaRemark: "" }
   ]);
 
   const handleSendToApproval = () => {
@@ -66,7 +75,11 @@ export function INSTInterOfficeNote() {
       instruments: "",
       qty: "",
       regdNo: "",
-      remark: ""
+      remark: "",
+      date: "",
+      defi: "",
+      availableItems: "",
+      qaRemark: ""
     };
     setRows([...rows, newRow]);
   };
@@ -248,28 +261,38 @@ export function INSTInterOfficeNote() {
 
       <div className="space-y-2">
         <div className="text-sm">
-          1. The following overhauled instruments of CMT Tank BA No{" "}
+          1. The following overhauled instruments of CMT Tank are fwd herewith.
+        </div>
+      </div>
+
+      {/* BA No., PT No., Section fields above table */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg">
+        <div className="space-y-2">
+          <Label htmlFor="cmt-ba-no">BA No.</Label>
           <Input
-          value={tankBANo}
-          onChange={(e) => setTankBANo(e.target.value)}
-          className="inline-block w-48 mx-1"
-          placeholder="" />
-        {" "}
-          overhauled CMT No.{" "}
+            id="cmt-ba-no"
+            value={cmtBaNo}
+            onChange={(e) => setCmtBaNo(e.target.value)}
+            placeholder="Enter BA No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cmt-pt-no">PT No.</Label>
           <Input
-          value={cmtNo}
-          onChange={(e) => setCmtNo(e.target.value)}
-          className="inline-block w-48 mx-1"
-          placeholder="" />
-        {" "}
-          Sec{" "}
+            id="cmt-pt-no"
+            value={cmtPtNo}
+            onChange={(e) => setCmtPtNo(e.target.value)}
+            placeholder="Enter PT No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="cmt-section">Section</Label>
           <Input
-          value={sec}
-          onChange={(e) => setSec(e.target.value)}
-          className="inline-block w-32 mx-1"
-          placeholder="" />
-        {" "}
-          are fwd herewith.
+            id="cmt-section"
+            value={cmtSection}
+            onChange={(e) => setCmtSection(e.target.value)}
+            placeholder="Enter Section"
+          />
         </div>
       </div>
 
@@ -277,12 +300,15 @@ export function INSTInterOfficeNote() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-16">SR NO</TableHead>
-              <TableHead className="w-32">PART NO</TableHead>
+              <TableHead className="w-12">SR NO</TableHead>
+              <TableHead className="w-24">PART NO</TableHead>
+              <TableHead className="w-32">DATE</TableHead>
               <TableHead>INSTRUMENTS</TableHead>
+              <TableHead className="w-24">DEFI</TableHead>
+              <TableHead className="w-32">AVAILABLE ITEMS</TableHead>
               <TableHead className="w-16">QTY</TableHead>
               <TableHead className="w-24">REGD NO</TableHead>
-              <TableHead className="w-32">REMARK</TableHead>
+              <TableHead className="w-32">QA REMARK</TableHead>
               <TableHead className="w-12"></TableHead>
             </TableRow>
           </TableHeader>
@@ -290,40 +316,24 @@ export function INSTInterOfficeNote() {
             {rows.map((row) =>
           <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
-                <TableCell>
-                  <Input
-                value={row.partNo}
-                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.instruments}
-                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
-                <TableCell>
-                  <Input
-                value={row.qty}
-                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                className="w-full" />
-
-                </TableCell>
+                <TableCell className="text-sm">{row.partNo || "-"}</TableCell>
+                <TableCell className="text-sm">{row.date || "-"}</TableCell>
+                <TableCell className="text-sm">{row.instruments || "-"}</TableCell>
+                <TableCell className="text-sm">{row.defi || "-"}</TableCell>
+                <TableCell className="text-sm">{row.availableItems || "-"}</TableCell>
+                <TableCell className="text-sm">{row.qty || "-"}</TableCell>
                 <TableCell>
                   <Input
                 value={row.regdNo}
                 onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Input
-                value={row.remark}
-                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                className="w-full" />
-
+                value={row.qaRemark}
+                onChange={(e) => updateRow(row.id, "qaRemark", e.target.value)}
+                className="w-full"
+                placeholder="PASS/FAIL" />
                 </TableCell>
                 <TableCell>
                   <Button
@@ -331,7 +341,6 @@ export function INSTInterOfficeNote() {
                 size="icon"
                 onClick={() => deleteRow(row.id)}
                 disabled={rows.length === 1}>
-
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
