@@ -10,8 +10,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SelectValue } from
+"@/components/ui/select";
 import { FileText, Plus, Trash2, Eye } from "lucide-react";
 import {
   Table,
@@ -19,14 +19,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  TableRow } from
+"@/components/ui/table";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  DialogTitle } from
+"@/components/ui/dialog";
 
 interface InstrumentRow {
   id: string;
@@ -47,15 +47,15 @@ export function ETDInterOfficeNote() {
   const [tankBANo, setTankBANo] = useState("");
   const [cmtNo, setCmtNo] = useState("");
   const [sec, setSec] = useState("");
-  
+
   // Fields for ICV-BMP-II/IIK format
   const [baNo, setBaNo] = useState("");
   const [ptNo, setPtNo] = useState("");
   const [section, setSection] = useState("");
 
   const [rows, setRows] = useState<InstrumentRow[]>([
-    { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "" }
-  ]);
+  { id: "1", srNo: "1", ohsNo: "", partNo: "", dateOfIssue: "", instruments: "", qty: "", regdNo: "", remark: "" }]
+  );
 
   const [showPreview, setShowPreview] = useState(false);
 
@@ -89,38 +89,38 @@ export function ETDInterOfficeNote() {
   };
 
   // Render ICV-BMP-II format
-  const renderICVBMPFormat = () => (
-    <div className="space-y-6">
+  const renderICVBMPFormat = () =>
+  <div className="space-y-6">
       <div className="text-center space-y-4">
-        <div className="font-bold text-lg">ETD SECTION</div>
+        <div className="font-bold text-lg"></div>
         <div className="flex justify-between items-start">
           <div className="text-left">142/TS/BMP-II/ETD</div>
           <div className="text-right space-y-1">
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-              />
+              value={passportSerNo}
+              onChange={(e) => setPassportSerNo(e.target.value)}
+              className="w-40" />
+
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-40" />
+
             </div>
           </div>
         </div>
       </div>
 
       <div className="space-y-2">
-        <div className="text-sm">
-          1. The following overhauled instruments of ICV-BMP-II are fwd herewith.
-        </div>
+        <div className="text-sm !whitespace-pre-line">
+
+      </div>
       </div>
 
       {/* BA No., PT No., Section fields above table */}
@@ -128,29 +128,29 @@ export function ETDInterOfficeNote() {
         <div className="space-y-2">
           <Label htmlFor="ba-no">BA No.</Label>
           <Input
-            id="ba-no"
-            value={baNo}
-            onChange={(e) => setBaNo(e.target.value)}
-            placeholder="Enter BA No."
-          />
+          id="ba-no"
+          value={baNo}
+          onChange={(e) => setBaNo(e.target.value)}
+          placeholder="Enter BA No." />
+
         </div>
         <div className="space-y-2">
           <Label htmlFor="pt-no">PT No.</Label>
           <Input
-            id="pt-no"
-            value={ptNo}
-            onChange={(e) => setPtNo(e.target.value)}
-            placeholder="Enter PT No."
-          />
+          id="pt-no"
+          value={ptNo}
+          onChange={(e) => setPtNo(e.target.value)}
+          placeholder="Enter PT No." />
+
         </div>
         <div className="space-y-2">
           <Label htmlFor="section">Section</Label>
           <Input
-            id="section"
-            value={section}
-            onChange={(e) => setSection(e.target.value)}
-            placeholder="Enter Section"
-          />
+          id="section"
+          value={section}
+          onChange={(e) => setSection(e.target.value)}
+          placeholder="Enter Section" />
+
         </div>
       </div>
 
@@ -170,8 +170,8 @@ export function ETDInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {rows.map((row) =>
+          <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell className="text-sm">{row.ohsNo || "-"}</TableCell>
                 <TableCell className="text-sm">{row.partNo || "-"}</TableCell>
@@ -180,30 +180,30 @@ export function ETDInterOfficeNote() {
                 <TableCell className="text-sm">{row.qty || "-"}</TableCell>
                 <TableCell>
                   <Input
-                    value={row.regdNo}
-                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.regdNo}
+                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.remark}
+                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow(row.id)}
-                    disabled={rows.length === 1}
-                  >
+                variant="ghost"
+                size="icon"
+                onClick={() => deleteRow(row.id)}
+                disabled={rows.length === 1}>
+
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}
+          )}
           </TableBody>
         </Table>
       </div>
@@ -222,12 +222,12 @@ export function ETDInterOfficeNote() {
           Send to Approval
         </Button>
       </div>
-    </div>
-  );
+    </div>;
+
 
   // Render CMT Tank format
-  const renderCMTFormat = () => (
-    <div className="space-y-6">
+  const renderCMTFormat = () =>
+  <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">ETD SECTION</div>
         <div className="flex justify-between items-start">
@@ -236,19 +236,19 @@ export function ETDInterOfficeNote() {
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-              />
+              value={passportSerNo}
+              onChange={(e) => setPassportSerNo(e.target.value)}
+              className="w-40" />
+
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-40" />
+
             </div>
           </div>
         </div>
@@ -258,22 +258,22 @@ export function ETDInterOfficeNote() {
         <div className="text-sm">
           1. The following overhauled instruments of CMT Tank BA No{" "}
           <Input
-            value={tankBANo}
-            onChange={(e) => setTankBANo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />
+          value={tankBANo}
+          onChange={(e) => setTankBANo(e.target.value)}
+          className="inline-block w-48 mx-1" />
+
           {" "}overhauled CMT No.{" "}
           <Input
-            value={cmtNo}
-            onChange={(e) => setCmtNo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />
+          value={cmtNo}
+          onChange={(e) => setCmtNo(e.target.value)}
+          className="inline-block w-48 mx-1" />
+
           {" "}Sec{" "}
           <Input
-            value={sec}
-            onChange={(e) => setSec(e.target.value)}
-            className="inline-block w-32 mx-1"
-          />
+          value={sec}
+          onChange={(e) => setSec(e.target.value)}
+          className="inline-block w-32 mx-1" />
+
           {" "}are fwd herewith.
         </div>
       </div>
@@ -292,56 +292,56 @@ export function ETDInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {rows.map((row) =>
+          <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                    value={row.partNo}
-                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.partNo}
+                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.instruments}
-                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.instruments}
+                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.qty}
-                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.qty}
+                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.regdNo}
-                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.regdNo}
+                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.remark}
+                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow(row.id)}
-                    disabled={rows.length === 1}
-                  >
+                variant="ghost"
+                size="icon"
+                onClick={() => deleteRow(row.id)}
+                disabled={rows.length === 1}>
+
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}
+          )}
           </TableBody>
         </Table>
       </div>
@@ -360,12 +360,12 @@ export function ETDInterOfficeNote() {
           Send to Approval
         </Button>
       </div>
-    </div>
-  );
+    </div>;
+
 
   // Preview Dialog Content for ICV-BMP-II/IIK
-  const renderICVBMPPreview = () => (
-    <div className="space-y-6 p-6 bg-white text-black">
+  const renderICVBMPPreview = () =>
+  <div className="space-y-6 p-6 bg-white text-black">
       <div className="text-center space-y-2 border-b-2 border-black pb-4">
         <div className="font-bold text-xl">ETD SECTION</div>
         <div className="flex justify-between items-start">
@@ -414,8 +414,8 @@ export function ETDInterOfficeNote() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id} className="border-b border-black">
+            {rows.map((row) =>
+          <tr key={row.id} className="border-b border-black">
                 <td className="border-r border-black p-2 text-center">{row.srNo}</td>
                 <td className="border-r border-black p-2 text-center">{row.ohsNo || "-"}</td>
                 <td className="border-r border-black p-2 text-center">{row.partNo || "-"}</td>
@@ -425,16 +425,16 @@ export function ETDInterOfficeNote() {
                 <td className="border-r border-black p-2 text-center">{row.regdNo || "-"}</td>
                 <td className="p-2">{row.remark || "-"}</td>
               </tr>
-            ))}
+          )}
           </tbody>
         </table>
       </div>
-    </div>
-  );
+    </div>;
+
 
   // Preview Dialog Content for CMT Tank
-  const renderCMTPreview = () => (
-    <div className="space-y-6 p-6 bg-white text-black">
+  const renderCMTPreview = () =>
+  <div className="space-y-6 p-6 bg-white text-black">
       <div className="text-center space-y-2 border-b-2 border-black pb-4">
         <div className="font-bold text-xl">ETD SECTION</div>
         <div className="flex justify-between items-start">
@@ -470,8 +470,8 @@ export function ETDInterOfficeNote() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id} className="border-b border-black">
+            {rows.map((row) =>
+          <tr key={row.id} className="border-b border-black">
                 <td className="border-r border-black p-2 text-center">{row.srNo}</td>
                 <td className="border-r border-black p-2 text-center">{row.partNo || "-"}</td>
                 <td className="border-r border-black p-2">{row.instruments || "-"}</td>
@@ -479,12 +479,12 @@ export function ETDInterOfficeNote() {
                 <td className="border-r border-black p-2 text-center">{row.regdNo || "-"}</td>
                 <td className="p-2">{row.remark || "-"}</td>
               </tr>
-            ))}
+          )}
           </tbody>
         </table>
       </div>
-    </div>
-  );
+    </div>;
+
 
   return (
     <div className="space-y-6">
@@ -517,11 +517,11 @@ export function ETDInterOfficeNote() {
 
           {selectedTank === "icv-bmp-ii-iik" && renderICVBMPFormat()}
           {selectedTank === "cmt-tank" && renderCMTFormat()}
-          {selectedTank === "tisk-component" && (
-            <div className="text-center text-muted-foreground py-8">
+          {selectedTank === "tisk-component" &&
+          <div className="text-center text-muted-foreground py-8">
               Format for TISK component coming soon...
             </div>
-          )}
+          }
         </CardContent>
       </Card>
 
@@ -535,6 +535,6 @@ export function ETDInterOfficeNote() {
           {selectedTank === "cmt-tank" && renderCMTPreview()}
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>);
+
 }
