@@ -25,6 +25,9 @@ import {
 interface InstrumentRow {
   id: string;
   srNo: string;
+  baNo: string;
+  ptNo: string;
+  section: string;
   ohsNo: string;
   partNo: string;
   instruments: string;
@@ -43,8 +46,8 @@ export function INSTInterOfficeNote() {
   const [sec, setSec] = useState("");
 
   const [rows, setRows] = useState<InstrumentRow[]>([
-  { id: "1", srNo: "1", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" }]
-  );
+    { id: "1", srNo: "1", baNo: "", ptNo: "", section: "", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" }
+  ]);
 
   const handleSendToApproval = () => {
     alert("Document sent to approval!");
@@ -54,6 +57,9 @@ export function INSTInterOfficeNote() {
     const newRow: InstrumentRow = {
       id: Date.now().toString(),
       srNo: (rows.length + 1).toString(),
+      baNo: "",
+      ptNo: "",
+      section: "",
       ohsNo: "",
       partNo: "",
       instruments: "",
@@ -109,8 +115,8 @@ export function INSTInterOfficeNote() {
 
       <div className="space-y-2">
         <div className="text-sm">
-
-      </div>
+          1. The following overhauled instruments of ICV-BMP-II are fwd herewith.
+        </div>
       </div>
 
       <div className="border rounded-lg overflow-hidden">
@@ -136,24 +142,21 @@ export function INSTInterOfficeNote() {
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                value={tankBANo}
-                onChange={(e) => setTankBANo(e.target.value)}
+                value={row.baNo}
+                onChange={(e) => updateRow(row.id, "baNo", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Input
-                value={vehicleNo}
-                onChange={(e) => setVehicleNo(e.target.value)}
+                value={row.ptNo}
+                onChange={(e) => updateRow(row.id, "ptNo", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Input
-                value={sec}
-                onChange={(e) => setSec(e.target.value)}
+                value={row.section}
+                onChange={(e) => updateRow(row.id, "section", e.target.value)}
                 className="w-full" />
-
                 </TableCell>
                 <TableCell>
                   <Input
