@@ -10,8 +10,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  SelectValue } from
+"@/components/ui/select";
 import { FileText, Plus, Trash2 } from "lucide-react";
 import {
   Table,
@@ -19,8 +19,8 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+  TableRow } from
+"@/components/ui/table";
 
 interface InstrumentRow {
   id: string;
@@ -41,10 +41,10 @@ export function INSTInterOfficeNote() {
   const [vehicleNo, setVehicleNo] = useState("");
   const [cmtNo, setCmtNo] = useState("");
   const [sec, setSec] = useState("");
-  
+
   const [rows, setRows] = useState<InstrumentRow[]>([
-    { id: "1", srNo: "1", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" },
-  ]);
+  { id: "1", srNo: "1", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" }]
+  );
 
   const handleSendToApproval = () => {
     alert("Document sent to approval!");
@@ -59,7 +59,7 @@ export function INSTInterOfficeNote() {
       instruments: "",
       qty: "",
       regdNo: "",
-      remark: "",
+      remark: ""
     };
     setRows([...rows, newRow]);
   };
@@ -71,12 +71,12 @@ export function INSTInterOfficeNote() {
   };
 
   const updateRow = (id: string, field: keyof InstrumentRow, value: string) => {
-    setRows(rows.map((row) => (row.id === id ? { ...row, [field]: value } : row)));
+    setRows(rows.map((row) => row.id === id ? { ...row, [field]: value } : row));
   };
 
   // Render ICV-BMP-II format
-  const renderICVBMPFormat = () => (
-    <div className="space-y-6">
+  const renderICVBMPFormat = () =>
+  <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">INST SECTION</div>
         <div className="flex justify-between items-start">
@@ -85,32 +85,32 @@ export function INSTInterOfficeNote() {
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-                placeholder="______"
-              />
+              value={passportSerNo}
+              onChange={(e) => setPassportSerNo(e.target.value)}
+              className="w-40"
+              placeholder="______" />
+
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-40" />
+
             </div>
           </div>
         </div>
-        <div className="font-bold text-base underline">
-          FORWARDING TS INST OF TANK ICV-BMP-II/IIK
-        </div>
+        <div className="font-bold text-base underline !whitespace-pre-line">
+
+      </div>
       </div>
 
       <div className="space-y-2">
         <div className="text-sm">
-          1. The following overhauled instruments of ICV-BMP-II are fwd herewith.
-        </div>
+
+      </div>
       </div>
 
       <div className="border rounded-lg overflow-hidden">
@@ -131,84 +131,84 @@ export function INSTInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {rows.map((row) =>
+          <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                    value={tankBANo}
-                    onChange={(e) => setTankBANo(e.target.value)}
-                    className="w-full"
-                  />
+                value={tankBANo}
+                onChange={(e) => setTankBANo(e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={vehicleNo}
-                    onChange={(e) => setVehicleNo(e.target.value)}
-                    className="w-full"
-                  />
+                value={vehicleNo}
+                onChange={(e) => setVehicleNo(e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={sec}
-                    onChange={(e) => setSec(e.target.value)}
-                    className="w-full"
-                  />
+                value={sec}
+                onChange={(e) => setSec(e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.ohsNo}
-                    onChange={(e) => updateRow(row.id, "ohsNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.ohsNo}
+                onChange={(e) => updateRow(row.id, "ohsNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.partNo}
-                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.partNo}
+                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.instruments}
-                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.instruments}
+                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.qty}
-                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.qty}
+                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.regdNo}
-                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.regdNo}
+                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.remark}
+                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow(row.id)}
-                    disabled={rows.length === 1}
-                  >
+                variant="ghost"
+                size="icon"
+                onClick={() => deleteRow(row.id)}
+                disabled={rows.length === 1}>
+
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}
+          )}
           </TableBody>
         </Table>
       </div>
@@ -223,12 +223,12 @@ export function INSTInterOfficeNote() {
           Send to Approval
         </Button>
       </div>
-    </div>
-  );
+    </div>;
+
 
   // Render CMT Tank format
-  const renderCMTFormat = () => (
-    <div className="space-y-6">
+  const renderCMTFormat = () =>
+  <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">INST SECTION</div>
         <div className="flex justify-between items-start">
@@ -237,20 +237,20 @@ export function INSTInterOfficeNote() {
             <div className="flex gap-2 items-center justify-end">
               <Label>Passport Ser No :</Label>
               <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-                placeholder="______"
-              />
+              value={passportSerNo}
+              onChange={(e) => setPassportSerNo(e.target.value)}
+              className="w-40"
+              placeholder="______" />
+
             </div>
             <div className="flex gap-2 items-center justify-end">
               <Label>Date</Label>
               <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-40" />
+
             </div>
           </div>
         </div>
@@ -263,25 +263,25 @@ export function INSTInterOfficeNote() {
         <div className="text-sm">
           1. The following overhauled instruments of CMT Tank BA No{" "}
           <Input
-            value={tankBANo}
-            onChange={(e) => setTankBANo(e.target.value)}
-            className="inline-block w-48 mx-1"
-            placeholder=""
-          />{" "}
+          value={tankBANo}
+          onChange={(e) => setTankBANo(e.target.value)}
+          className="inline-block w-48 mx-1"
+          placeholder="" />
+        {" "}
           overhauled CMT No.{" "}
           <Input
-            value={cmtNo}
-            onChange={(e) => setCmtNo(e.target.value)}
-            className="inline-block w-48 mx-1"
-            placeholder=""
-          />{" "}
+          value={cmtNo}
+          onChange={(e) => setCmtNo(e.target.value)}
+          className="inline-block w-48 mx-1"
+          placeholder="" />
+        {" "}
           Sec{" "}
           <Input
-            value={sec}
-            onChange={(e) => setSec(e.target.value)}
-            className="inline-block w-32 mx-1"
-            placeholder=""
-          />{" "}
+          value={sec}
+          onChange={(e) => setSec(e.target.value)}
+          className="inline-block w-32 mx-1"
+          placeholder="" />
+        {" "}
           are fwd herewith.
         </div>
       </div>
@@ -300,56 +300,56 @@ export function INSTInterOfficeNote() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
+            {rows.map((row) =>
+          <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                    value={row.partNo}
-                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.partNo}
+                onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.instruments}
-                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.instruments}
+                onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.qty}
-                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.qty}
+                onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.regdNo}
-                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.regdNo}
+                onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
+                value={row.remark}
+                onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                className="w-full" />
+
                 </TableCell>
                 <TableCell>
                   <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow(row.id)}
-                    disabled={rows.length === 1}
-                  >
+                variant="ghost"
+                size="icon"
+                onClick={() => deleteRow(row.id)}
+                disabled={rows.length === 1}>
+
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
-            ))}
+          )}
           </TableBody>
         </Table>
       </div>
@@ -364,8 +364,8 @@ export function INSTInterOfficeNote() {
           Send to Approval
         </Button>
       </div>
-    </div>
-  );
+    </div>;
+
 
   return (
     <div className="space-y-6">
@@ -398,13 +398,13 @@ export function INSTInterOfficeNote() {
 
           {selectedTank === "icv-bmp-ii-iik" && renderICVBMPFormat()}
           {selectedTank === "cmt-tank" && renderCMTFormat()}
-          {selectedTank === "tisk-component" && (
-            <div className="text-center text-muted-foreground py-8">
+          {selectedTank === "tisk-component" &&
+          <div className="text-center text-muted-foreground py-8">
               Format for TISK component coming soon...
             </div>
-          )}
+          }
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>);
+
 }
