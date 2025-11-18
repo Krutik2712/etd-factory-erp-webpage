@@ -246,7 +246,7 @@ export function INSTHome() {
                 <Clock className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Total Man Hours Required</p>
+                <p className="text-sm text-muted-foreground">Total Man Hours Available</p>
                 <p className="text-2xl font-bold">{totalManHours}</p>
               </div>
             </div>
