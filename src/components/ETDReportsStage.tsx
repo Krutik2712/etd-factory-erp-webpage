@@ -537,7 +537,7 @@ export function ETDReportsStage() {
           <CardHeader>
             <CardTitle className="text-center">
               <div className="space-y-1">
-                <div className="text-sm"></div>
+                <div className="text-sm !whitespace-pre-line"></div>
                 <div className="text-xl font-bold">REJECT SLIP</div>
               </div>
             </CardTitle>
