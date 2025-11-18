@@ -88,7 +88,6 @@ export function ARMTInterOfficeNote() {
                 value={passportSerNo}
                 onChange={(e) => setPassportSerNo(e.target.value)}
                 className="w-40"
-                placeholder="______"
               />
             </div>
             <div className="flex gap-2 items-center justify-end">
@@ -114,21 +113,18 @@ export function ARMTInterOfficeNote() {
             value={tankBANo}
             onChange={(e) => setTankBANo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
           />{" "}
           & overhauled P T No{" "}
           <Input
             value={vehicleNo}
             onChange={(e) => setVehicleNo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
           />{" "}
           (vehicle no.) Sec{" "}
           <Input
             value={sec}
             onChange={(e) => setSec(e.target.value)}
             className="inline-block w-32 mx-1"
-            placeholder="____________"
           />{" "}
           are fwd herewith.
         </div>
@@ -237,7 +233,6 @@ export function ARMTInterOfficeNote() {
                 value={passportSerNo}
                 onChange={(e) => setPassportSerNo(e.target.value)}
                 className="w-40"
-                placeholder="______"
               />
             </div>
             <div className="flex gap-2 items-center justify-end">
@@ -263,21 +258,18 @@ export function ARMTInterOfficeNote() {
             value={tankBANo}
             onChange={(e) => setTankBANo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
           />{" "}
           overhauled CMT No.{" "}
           <Input
             value={cmtNo}
             onChange={(e) => setCmtNo(e.target.value)}
             className="inline-block w-48 mx-1"
-            placeholder="________________________"
           />{" "}
           Sec{" "}
           <Input
             value={sec}
             onChange={(e) => setSec(e.target.value)}
             className="inline-block w-32 mx-1"
-            placeholder="____________"
           />{" "}
           are fwd herewith.
         </div>
