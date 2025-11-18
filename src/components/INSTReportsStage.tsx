@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 import { FileText } from "lucide-react"
 
-type ReportType = "defect" | "condemnation" | "vir" | ""
+type ReportType = "defect" | "condemnation" | "vir" | "rejection" | ""
 
 export function INSTReportsStage() {
   const [reportType, setReportType] = useState<ReportType>("")
@@ -44,6 +44,7 @@ export function INSTReportsStage() {
                 <SelectItem value="defect">Defect Report</SelectItem>
                 <SelectItem value="condemnation">Condemnation Report</SelectItem>
                 <SelectItem value="vir">VIR (Viewer's Inspection Report)</SelectItem>
+                <SelectItem value="rejection">Rejection Slip</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -355,6 +356,121 @@ export function INSTReportsStage() {
                 id="vir-recommendations" 
                 placeholder="Enter recommendations"
                 rows={3}
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <Button onClick={handleSendForApproval} size="lg">
+                Send for Approval
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {reportType === "rejection" && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Rejection Slip</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="rj-slip-no">Rejection Slip No.</Label>
+                <Input id="rj-slip-no" placeholder="Enter slip number" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-date">Date</Label>
+                <Input id="rj-date" type="date" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-inspector">Rejected By</Label>
+                <Input id="rj-inspector" placeholder="Enter inspector name" />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="rj-instrument-no">Instrument No.</Label>
+                <Input id="rj-instrument-no" placeholder="Enter instrument number" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-part-no">Part No.</Label>
+                <Input id="rj-part-no" placeholder="Enter part number" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="rj-nomenclature">Nomenclature</Label>
+                <Input id="rj-nomenclature" placeholder="Enter nomenclature" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-supplier">Supplier/Vendor</Label>
+                <Input id="rj-supplier" placeholder="Enter supplier name" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="rj-quantity">Quantity Rejected</Label>
+                <Input id="rj-quantity" type="number" placeholder="Enter quantity" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-batch-no">Batch/Lot No.</Label>
+                <Input id="rj-batch-no" placeholder="Enter batch number" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-ohs-no">OHS No.</Label>
+                <Input id="rj-ohs-no" placeholder="Enter OHS number" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="rj-reason">Reason for Rejection</Label>
+              <Textarea 
+                id="rj-reason" 
+                placeholder="Enter detailed reason for rejection"
+                rows={5}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="rj-stage">Stage of Rejection</Label>
+                <Select>
+                  <SelectTrigger id="rj-stage">
+                    <SelectValue placeholder="Select stage" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="incoming">Incoming Inspection</SelectItem>
+                    <SelectItem value="in-process">In-Process</SelectItem>
+                    <SelectItem value="final">Final Inspection</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="rj-disposition">Disposition</Label>
+                <Select>
+                  <SelectTrigger id="rj-disposition">
+                    <SelectValue placeholder="Select disposition" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="return_supplier">Return to Supplier</SelectItem>
+                    <SelectItem value="scrap">Scrap</SelectItem>
+                    <SelectItem value="rework">Rework</SelectItem>
+                    <SelectItem value="use_as_is">Use As-Is (Concession)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="rj-remarks">Remarks</Label>
+              <Textarea 
+                id="rj-remarks" 
+                placeholder="Additional remarks"
+                rows={2}
               />
             </div>
 
