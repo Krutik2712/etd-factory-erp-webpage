@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { FileText } from "lucide-react"
+  SelectValue } from
+"@/components/ui/select";
+import { FileText } from "lucide-react";
 
-type ReportType = "defect" | "condemnation" | "vir" | "rejection" | ""
+type ReportType = "defect" | "condemnation" | "vir" | "rejection" | "";
 
 export function ETDReportsStage() {
-  const [reportType, setReportType] = useState<ReportType>("")
+  const [reportType, setReportType] = useState<ReportType>("");
 
   const handleSendForApproval = () => {
-    alert("Report sent for approval!")
-  }
+    alert("Report sent for approval!");
+  };
 
   return (
     <div className="space-y-6">
@@ -51,8 +51,8 @@ export function ETDReportsStage() {
         </CardContent>
       </Card>
 
-      {reportType === "defect" && (
-        <Card>
+      {reportType === "defect" &&
+      <Card>
           <CardHeader>
             <CardTitle>I.A.F. (EME) EQ-I (3rd Revision) - DEFECT REPORT FORM ARMY TECHNICAL EQUIPMENT</CardTitle>
           </CardHeader>
@@ -170,11 +170,11 @@ export function ETDReportsStage() {
                 <div className="grid grid-cols-2">
                   <div className="p-3 bg-muted font-medium border-r">18. Details of Defect</div>
                   <div className="p-3">
-                    <Textarea 
-                      placeholder="Oil leakage from seal during testing at higher assy on test bed. Similar defect noticed repeatedly. On further examination Material does not confirms against reqd specification NBR+CR, Obs NBR which may cause leakage of oil seal during testing itself on test bed. (Ref Lab report No MT-R/119/2023 dt 21 Aug 2023)"
-                      rows={6}
-                      className="border-0"
-                    />
+                    <Textarea
+                    placeholder="Oil leakage from seal during testing at higher assy on test bed. Similar defect noticed repeatedly. On further examination Material does not confirms against reqd specification NBR+CR, Obs NBR which may cause leakage of oil seal during testing itself on test bed. (Ref Lab report No MT-R/119/2023 dt 21 Aug 2023)"
+                    rows={6}
+                    className="border-0" />
+
                   </div>
                 </div>
               </div>
@@ -298,14 +298,14 @@ export function ETDReportsStage() {
             </div>
           </CardContent>
         </Card>
-      )}
+      }
 
-      {reportType === "condemnation" && (
-        <Card>
+      {reportType === "condemnation" &&
+      <Card>
           <CardHeader>
             <CardTitle className="text-center">
               <div className="space-y-1">
-                <div className="text-sm">CAF HEMET E-25 (1st Revision)</div>
+                <div className="text-sm !whitespace-pre-line"></div>
                 <div className="text-xl font-bold">CONDEMNATION REPORT</div>
               </div>
             </CardTitle>
@@ -375,8 +375,8 @@ export function ETDReportsStage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {[1, 2, 3, 4, 5].map((row) => (
-                      <tr key={row} className="border-t">
+                    {[1, 2, 3, 4, 5].map((row) =>
+                  <tr key={row} className="border-t">
                         <td className="p-2 border-r"><Input className="border-0" /></td>
                         <td className="p-2 border-r"><Input className="border-0" /></td>
                         <td className="p-2 border-r"><Input className="border-0" /></td>
@@ -384,7 +384,7 @@ export function ETDReportsStage() {
                         <td className="p-2 border-r"><Input className="border-0" type="number" /></td>
                         <td className="p-2"><Input className="border-0" /></td>
                       </tr>
-                    ))}
+                  )}
                   </tbody>
                 </table>
               </div>
@@ -424,10 +424,10 @@ export function ETDReportsStage() {
             </div>
           </CardContent>
         </Card>
-      )}
+      }
 
-      {reportType === "vir" && (
-        <Card>
+      {reportType === "vir" &&
+      <Card>
           <CardHeader>
             <CardTitle>VIR (Viewer's Inspection Report)</CardTitle>
           </CardHeader>
@@ -469,20 +469,20 @@ export function ETDReportsStage() {
 
             <div className="space-y-2">
               <Label htmlFor="vir-inspection-scope">Inspection Scope</Label>
-              <Textarea 
-                id="vir-inspection-scope" 
-                placeholder="Enter scope of inspection"
-                rows={3}
-              />
+              <Textarea
+              id="vir-inspection-scope"
+              placeholder="Enter scope of inspection"
+              rows={3} />
+
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="vir-findings">Inspection Findings</Label>
-              <Textarea 
-                id="vir-findings" 
-                placeholder="Enter detailed inspection findings"
-                rows={5}
-              />
+              <Textarea
+              id="vir-findings"
+              placeholder="Enter detailed inspection findings"
+              rows={5} />
+
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -507,20 +507,20 @@ export function ETDReportsStage() {
 
             <div className="space-y-2">
               <Label htmlFor="vir-observations">Additional Observations</Label>
-              <Textarea 
-                id="vir-observations" 
-                placeholder="Enter any additional observations"
-                rows={3}
-              />
+              <Textarea
+              id="vir-observations"
+              placeholder="Enter any additional observations"
+              rows={3} />
+
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="vir-recommendations">Recommendations</Label>
-              <Textarea 
-                id="vir-recommendations" 
-                placeholder="Enter recommendations"
-                rows={3}
-              />
+              <Textarea
+              id="vir-recommendations"
+              placeholder="Enter recommendations"
+              rows={3} />
+
             </div>
 
             <div className="flex justify-end">
@@ -530,14 +530,14 @@ export function ETDReportsStage() {
             </div>
           </CardContent>
         </Card>
-      )}
+      }
 
-      {reportType === "rejection" && (
-        <Card>
+      {reportType === "rejection" &&
+      <Card>
           <CardHeader>
             <CardTitle className="text-center">
               <div className="space-y-1">
-                <div className="text-sm">In lieu of IAF (EME) W-78</div>
+                <div className="text-sm"></div>
                 <div className="text-xl font-bold">REJECT SLIP</div>
               </div>
             </CardTitle>
@@ -595,8 +595,8 @@ export function ETDReportsStage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((row) => (
-                      <tr key={row} className="border-t">
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((row) =>
+                  <tr key={row} className="border-t">
                         <td className="p-2 border-r"><Input className="border-0 text-center" value={row} readOnly /></td>
                         <td className="p-2 border-r"><Input className="border-0" /></td>
                         <td className="p-2 border-r"><Input className="border-0" /></td>
@@ -605,7 +605,7 @@ export function ETDReportsStage() {
                         <td className="p-2 border-r"><Input className="border-0" type="number" /></td>
                         <td className="p-2"><Input className="border-0" /></td>
                       </tr>
-                    ))}
+                  )}
                   </tbody>
                 </table>
               </div>
@@ -658,7 +658,7 @@ export function ETDReportsStage() {
             </div>
           </CardContent>
         </Card>
-      )}
-    </div>
-  )
+      }
+    </div>);
+
 }
