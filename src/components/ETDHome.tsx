@@ -379,12 +379,24 @@ export function ETDHome() {
               </div>
             </div>
             <div className="p-6 border-t border-border">
-              <button
-                onClick={() => setSelectedOrder(null)}
-                className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
-              >
-                Close
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setSelectedOrder(null)}
+                  className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80 transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    console.log(`Submitting work order: ${selectedOrder?.orderNo}`)
+                    // Handle submit logic here
+                    setSelectedOrder(null)
+                  }}
+                  className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>
