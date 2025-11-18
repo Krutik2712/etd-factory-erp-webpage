@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Home, Users, Clock, AlertCircle } from "lucide-react"
+import { Home, Users, Clock, AlertCircle, Bell } from "lucide-react"
 
 interface WorkOrder {
   orderNo: string
@@ -106,6 +106,7 @@ export function INSTHome() {
   const [selectedOrder, setSelectedOrder] = useState<WorkOrder | null>(null)
   const [editableReason, setEditableReason] = useState<string>("")
   const [isEditingReason, setIsEditingReason] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
 
   const getStatusColor = (status: WorkOrder["status"]) => {
     switch (status) {
@@ -136,17 +137,32 @@ export function INSTHome() {
   const totalManPowers = workOrders.reduce((sum, wo) => sum + wo.manPowers, 0)
   const totalManHours = workOrders.reduce((sum, wo) => sum + wo.manHours, 0)
 
+  const delayedOrders = workOrders.filter(wo => wo.status === "Delayed")
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="bg-primary p-3 rounded-lg">
-          <Home className="h-6 w-6 text-primary-foreground" />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary p-3 rounded-lg">
+            <Home className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold">INST Department - Home</h1>
+            <p className="text-muted-foreground">Work Orders Dashboard</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold">INST Department - Home</h1>
-          <p className="text-muted-foreground">Work Orders Dashboard</p>
-        </div>
+        <button
+          onClick={() => setShowNotifications(true)}
+          className="relative p-3 rounded-lg bg-card border border-border hover:bg-muted/50 transition-colors"
+        >
+          <Bell className="h-6 w-6" />
+          {delayedOrders.length > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {delayedOrders.length}
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Statistics Cards */}
@@ -253,6 +269,65 @@ export function INSTHome() {
           </div>
         </div>
       </div>
+
+      {/* Notifications Modal */}
+      {showNotifications && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowNotifications(false)}>
+          <div className="bg-card border border-border rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 border-b border-border">
+              <div className="flex items-center gap-3">
+                <AlertCircle className="h-6 w-6 text-red-500" />
+                <h2 className="text-2xl font-bold">Delayed Work Orders</h2>
+              </div>
+            </div>
+            <div className="p-6">
+              {delayedOrders.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No delayed work orders</p>
+              ) : (
+                <div className="space-y-4">
+                  {delayedOrders.map((order) => (
+                    <div key={order.orderNo} className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className="font-semibold text-lg">{order.orderNo}</p>
+                          <p className="text-sm text-muted-foreground">{order.referenceId}</p>
+                        </div>
+                        <Badge className="bg-red-500 text-white">Delayed</Badge>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 mt-3">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Due Date</p>
+                          <p className="text-sm font-medium">{order.dueDate}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Time Exceeded</p>
+                          <p className="text-sm font-medium text-red-600 dark:text-red-400">
+                            {order.delayedBy} days ({order.delayedBy! * 24} hrs)
+                          </p>
+                        </div>
+                      </div>
+                      {order.stopReason && (
+                        <div className="mt-3 pt-3 border-t border-red-200 dark:border-red-800">
+                          <p className="text-xs text-muted-foreground">Reason</p>
+                          <p className="text-sm font-medium">{order.stopReason}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="p-6 border-t border-border">
+              <button
+                onClick={() => setShowNotifications(false)}
+                className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Work Order Details Modal/Section */}
       {selectedOrder && (
