@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,14 +12,357 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FileText } from "lucide-react";
+import { FileText, Plus, Trash2 } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+interface InstrumentRow {
+  id: string;
+  srNo: string;
+  ohsNo: string;
+  partNo: string;
+  instruments: string;
+  qty: string;
+  regdNo: string;
+  remark: string;
+}
 
 export function INSTInterOfficeNote() {
   const [selectedTank, setSelectedTank] = useState("");
+  const [passportSerNo, setPassportSerNo] = useState("");
+  const [date, setDate] = useState("");
+  const [tankBANo, setTankBANo] = useState("");
+  const [vehicleNo, setVehicleNo] = useState("");
+  const [cmtNo, setCmtNo] = useState("");
+  const [sec, setSec] = useState("");
+  
+  const [rows, setRows] = useState<InstrumentRow[]>([
+    { id: "1", srNo: "1", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" },
+  ]);
 
-  const handleSendForApproval = () => {
-    alert("Inter Office Note sent for approval!");
+  const handleSendToApproval = () => {
+    alert("Document sent to approval!");
   };
+
+  const addRow = () => {
+    const newRow: InstrumentRow = {
+      id: Date.now().toString(),
+      srNo: (rows.length + 1).toString(),
+      ohsNo: "",
+      partNo: "",
+      instruments: "",
+      qty: "",
+      regdNo: "",
+      remark: "",
+    };
+    setRows([...rows, newRow]);
+  };
+
+  const deleteRow = (id: string) => {
+    if (rows.length > 1) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const updateRow = (id: string, field: keyof InstrumentRow, value: string) => {
+    setRows(rows.map((row) => (row.id === id ? { ...row, [field]: value } : row)));
+  };
+
+  // Render ICV-BMP-II format
+  const renderICVBMPFormat = () => (
+    <div className="space-y-6">
+      <div className="text-center space-y-4">
+        <div className="font-bold text-lg">INST SECTION</div>
+        <div className="flex justify-between items-start">
+          <div className="text-left">142/TS/BMP-II/INST</div>
+          <div className="text-right space-y-1">
+            <div className="flex gap-2 items-center justify-end">
+              <Label>Passport Ser No :</Label>
+              <Input
+                value={passportSerNo}
+                onChange={(e) => setPassportSerNo(e.target.value)}
+                className="w-40"
+                placeholder="______"
+              />
+            </div>
+            <div className="flex gap-2 items-center justify-end">
+              <Label>Date</Label>
+              <Input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-40"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="font-bold text-base underline">
+          FORWARDING TS INST OF TANK ICV-BMP-II/IIK
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="text-sm">
+          1. The following overhauled instruments of ICV-BMP-II Tank BA No{" "}
+          <Input
+            value={tankBANo}
+            onChange={(e) => setTankBANo(e.target.value)}
+            className="inline-block w-48 mx-1"
+            placeholder="________________________"
+          />{" "}
+          & overhauled P T No{" "}
+          <Input
+            value={vehicleNo}
+            onChange={(e) => setVehicleNo(e.target.value)}
+            className="inline-block w-48 mx-1"
+            placeholder="________________________"
+          />{" "}
+          (vehicle no.) Sec{" "}
+          <Input
+            value={sec}
+            onChange={(e) => setSec(e.target.value)}
+            className="inline-block w-32 mx-1"
+            placeholder="____________"
+          />{" "}
+          are fwd herewith.
+        </div>
+      </div>
+
+      <div className="border rounded-lg overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-12">SR</TableHead>
+              <TableHead className="w-20">OHS No</TableHead>
+              <TableHead className="w-32">PART NO</TableHead>
+              <TableHead>INSTRUMENTS</TableHead>
+              <TableHead className="w-16">QTY</TableHead>
+              <TableHead className="w-24">REGD NO</TableHead>
+              <TableHead className="w-32">REMARK</TableHead>
+              <TableHead className="w-12"></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.srNo}</TableCell>
+                <TableCell>
+                  <Input
+                    value={row.ohsNo}
+                    onChange={(e) => updateRow(row.id, "ohsNo", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.partNo}
+                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.instruments}
+                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.qty}
+                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.regdNo}
+                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.remark}
+                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => deleteRow(row.id)}
+                    disabled={rows.length === 1}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <Button onClick={addRow} variant="outline" size="sm">
+        <Plus className="h-4 w-4 mr-2" />
+        Add Row
+      </Button>
+
+      <div className="flex justify-end pt-4">
+        <Button onClick={handleSendToApproval} size="lg">
+          Send to Approval
+        </Button>
+      </div>
+    </div>
+  );
+
+  // Render CMT Tank format
+  const renderCMTFormat = () => (
+    <div className="space-y-6">
+      <div className="text-center space-y-4">
+        <div className="font-bold text-lg">INST SECTION</div>
+        <div className="flex justify-between items-start">
+          <div className="text-left">142/TS/CMT/INST</div>
+          <div className="text-right space-y-1">
+            <div className="flex gap-2 items-center justify-end">
+              <Label>Passport Ser No :</Label>
+              <Input
+                value={passportSerNo}
+                onChange={(e) => setPassportSerNo(e.target.value)}
+                className="w-40"
+                placeholder="______"
+              />
+            </div>
+            <div className="flex gap-2 items-center justify-end">
+              <Label>Date</Label>
+              <Input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-40"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="font-bold text-base underline">
+          FORWARDING TS INST OF TANK CMT
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="text-sm">
+          1. The following overhauled instruments of CMT Tank BA No{" "}
+          <Input
+            value={tankBANo}
+            onChange={(e) => setTankBANo(e.target.value)}
+            className="inline-block w-48 mx-1"
+            placeholder="________________________"
+          />{" "}
+          overhauled CMT No.{" "}
+          <Input
+            value={cmtNo}
+            onChange={(e) => setCmtNo(e.target.value)}
+            className="inline-block w-48 mx-1"
+            placeholder="________________________"
+          />{" "}
+          Sec{" "}
+          <Input
+            value={sec}
+            onChange={(e) => setSec(e.target.value)}
+            className="inline-block w-32 mx-1"
+            placeholder="____________"
+          />{" "}
+          are fwd herewith.
+        </div>
+      </div>
+
+      <div className="border rounded-lg overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-16">SR NO</TableHead>
+              <TableHead className="w-32">PART NO</TableHead>
+              <TableHead>INSTRUMENTS</TableHead>
+              <TableHead className="w-16">QTY</TableHead>
+              <TableHead className="w-24">REGD NO</TableHead>
+              <TableHead className="w-32">REMARK</TableHead>
+              <TableHead className="w-12"></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.srNo}</TableCell>
+                <TableCell>
+                  <Input
+                    value={row.partNo}
+                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.instruments}
+                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.qty}
+                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.regdNo}
+                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.remark}
+                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => deleteRow(row.id)}
+                    disabled={rows.length === 1}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <Button onClick={addRow} variant="outline" size="sm">
+        <Plus className="h-4 w-4 mr-2" />
+        Add Row
+      </Button>
+
+      <div className="flex justify-end pt-4">
+        <Button onClick={handleSendToApproval} size="lg">
+          Send to Approval
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -51,110 +393,12 @@ export function INSTInterOfficeNote() {
             </Select>
           </div>
 
-          {selectedTank && (
-            <>
-              {/* Header Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-b pb-4">
-                <div className="space-y-2">
-                  <Label htmlFor="ion-note-no">Note No.</Label>
-                  <Input id="ion-note-no" placeholder="Enter note number" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="ion-date">Date</Label>
-                  <Input id="ion-date" type="date" />
-                </div>
-              </div>
-
-              {/* From/To Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="ion-from">From</Label>
-                  <Input id="ion-from" placeholder="Enter department/person" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="ion-to">To</Label>
-                  <Input id="ion-to" placeholder="Enter department/person" />
-                </div>
-              </div>
-
-              {/* Subject */}
-              <div className="space-y-2">
-                <Label htmlFor="ion-subject">Subject</Label>
-                <Input id="ion-subject" placeholder="Enter subject" />
-              </div>
-
-              {/* Reference */}
-              <div className="space-y-2">
-                <Label htmlFor="ion-reference">Reference</Label>
-                <Input id="ion-reference" placeholder="Enter reference details" />
-              </div>
-
-              {/* Tank Details */}
-              <div className="space-y-2 p-4 bg-muted rounded-lg">
-                <Label className="font-semibold">Tank Details</Label>
-                <div className="text-sm font-medium">
-                  {selectedTank === "icv-bmp-ii-iik"
-                    ? "ICV-BMP-II/IIK"
-                    : selectedTank === "tisk-component"
-                    ? "TISK component of ICV BMP-II"
-                    : "CMT TANK"}
-                </div>
-              </div>
-
-              {/* Main Content */}
-              <div className="space-y-2">
-                <Label htmlFor="ion-content">Content</Label>
-                <Textarea
-                  id="ion-content"
-                  placeholder="Enter the main content of the inter office note"
-                  rows={10}
-                />
-              </div>
-
-              {/* Additional Details - INST specific */}
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="ion-instrument-no">Instrument No. / Equipment No.</Label>
-                  <Input id="ion-instrument-no" placeholder="Enter instrument or equipment number" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="ion-part-details">Part Details (if applicable)</Label>
-                  <Textarea
-                    id="ion-part-details"
-                    placeholder="Enter part number, nomenclature, quantity, etc."
-                    rows={3}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="ion-remarks">Remarks</Label>
-                  <Textarea
-                    id="ion-remarks"
-                    placeholder="Enter any additional remarks"
-                    rows={3}
-                  />
-                </div>
-              </div>
-
-              {/* Signatures */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t">
-                <div className="space-y-2">
-                  <Label>Prepared By</Label>
-                  <Input placeholder="Enter name and designation" />
-                </div>
-                <div className="space-y-2">
-                  <Label>Approved By</Label>
-                  <Input placeholder="Enter name and designation" />
-                </div>
-              </div>
-
-              <div className="flex justify-end">
-                <Button onClick={handleSendForApproval} size="lg">
-                  Send for Approval
-                </Button>
-              </div>
-            </>
+          {selectedTank === "icv-bmp-ii-iik" && renderICVBMPFormat()}
+          {selectedTank === "cmt-tank" && renderCMTFormat()}
+          {selectedTank === "tisk-component" && (
+            <div className="text-center text-muted-foreground py-8">
+              Format for TISK component coming soon...
+            </div>
           )}
         </CardContent>
       </Card>
