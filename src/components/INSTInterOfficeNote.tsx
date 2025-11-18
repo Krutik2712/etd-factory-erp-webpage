@@ -109,28 +109,7 @@ export function INSTInterOfficeNote() {
 
       <div className="space-y-2">
         <div className="text-sm">
-          1. The following overhauled instruments of ICV-BMP-II Tank BA No{" "}
-          <Input
-            value={tankBANo}
-            onChange={(e) => setTankBANo(e.target.value)}
-            className="inline-block w-48 mx-1"
-            placeholder=""
-          />{" "}
-          & overhauled P T No{" "}
-          <Input
-            value={vehicleNo}
-            onChange={(e) => setVehicleNo(e.target.value)}
-            className="inline-block w-48 mx-1"
-            placeholder=""
-          />{" "}
-          (vehicle no.) Sec{" "}
-          <Input
-            value={sec}
-            onChange={(e) => setSec(e.target.value)}
-            className="inline-block w-32 mx-1"
-            placeholder=""
-          />{" "}
-          are fwd herewith.
+          1. The following overhauled instruments of ICV-BMP-II are fwd herewith.
         </div>
       </div>
 
@@ -139,6 +118,9 @@ export function INSTInterOfficeNote() {
           <TableHeader>
             <TableRow>
               <TableHead className="w-12">SR</TableHead>
+              <TableHead className="w-24">BA No.</TableHead>
+              <TableHead className="w-24">PT No.</TableHead>
+              <TableHead className="w-24">Section</TableHead>
               <TableHead className="w-20">OHS No</TableHead>
               <TableHead className="w-32">PART NO</TableHead>
               <TableHead>INSTRUMENTS</TableHead>
@@ -152,6 +134,27 @@ export function INSTInterOfficeNote() {
             {rows.map((row) => (
               <TableRow key={row.id}>
                 <TableCell>{row.srNo}</TableCell>
+                <TableCell>
+                  <Input
+                    value={tankBANo}
+                    onChange={(e) => setTankBANo(e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={vehicleNo}
+                    onChange={(e) => setVehicleNo(e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={sec}
+                    onChange={(e) => setSec(e.target.value)}
+                    className="w-full"
+                  />
+                </TableCell>
                 <TableCell>
                   <Input
                     value={row.ohsNo}
