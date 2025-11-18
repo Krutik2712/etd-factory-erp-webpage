@@ -25,25 +25,37 @@ import {
 interface InstrumentRow {
   id: string;
   srNo: string;
-  ohsNo: string;
-  partNo: string;
+  ohsPartNo: string;
+  date: string;
   instruments: string;
   qty: string;
+  available: string;
+  defi: string;
   regdNo: string;
-  remark: string;
+  qaRemark: string;
 }
 
 export function ARMTInterOfficeNote() {
   const [selectedTank, setSelectedTank] = useState("");
   const [passportSerNo, setPassportSerNo] = useState("");
   const [date, setDate] = useState("");
-  const [tankBANo, setTankBANo] = useState("");
-  const [vehicleNo, setVehicleNo] = useState("");
-  const [cmtNo, setCmtNo] = useState("");
-  const [sec, setSec] = useState("");
-  
+  const [baNo, setBaNo] = useState("");
+  const [ptNo, setPtNo] = useState("");
+  const [section, setSection] = useState("");
+
   const [rows, setRows] = useState<InstrumentRow[]>([
-    { id: "1", srNo: "1", ohsNo: "", partNo: "", instruments: "", qty: "", regdNo: "", remark: "" },
+    {
+      id: "1",
+      srNo: "1",
+      ohsPartNo: "",
+      date: "",
+      instruments: "",
+      qty: "",
+      available: "",
+      defi: "",
+      regdNo: "",
+      qaRemark: "",
+    },
   ]);
 
   const handleSendToApproval = () => {
@@ -54,12 +66,14 @@ export function ARMTInterOfficeNote() {
     const newRow: InstrumentRow = {
       id: Date.now().toString(),
       srNo: (rows.length + 1).toString(),
-      ohsNo: "",
-      partNo: "",
+      ohsPartNo: "",
+      date: "",
       instruments: "",
       qty: "",
+      available: "",
+      defi: "",
       regdNo: "",
-      remark: "",
+      qaRemark: "",
     };
     setRows([...rows, newRow]);
   };
@@ -79,68 +93,82 @@ export function ARMTInterOfficeNote() {
     <div className="space-y-6">
       <div className="text-center space-y-4">
         <div className="font-bold text-lg">ARMT SECTION</div>
-        <div className="flex justify-between items-start">
-          <div className="text-left">142/TS/BMP-II/ARMT</div>
-          <div className="text-right space-y-1">
-            <div className="flex gap-2 items-center justify-end">
-              <Label>Passport Ser No :</Label>
-              <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-              />
-            </div>
-            <div className="flex gap-2 items-center justify-end">
-              <Label>Date</Label>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
-            </div>
-          </div>
+        <div className="text-left">142/TS/BMP-II/ARMT</div>
+      </div>
+
+      {/* Headers Section */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 p-4 bg-muted/50 rounded-lg border-2">
+        <div className="space-y-2">
+          <Label htmlFor="passport-ser-no" className="font-semibold">
+            Passport Ser No.
+          </Label>
+          <Input
+            id="passport-ser-no"
+            value={passportSerNo}
+            onChange={(e) => setPassportSerNo(e.target.value)}
+            placeholder="Enter Passport Ser No."
+          />
         </div>
-        <div className="font-bold text-base underline">
-          FORWARDING TS ARMT OF TANK ICV-BMP-II/IIK
+        <div className="space-y-2">
+          <Label htmlFor="date" className="font-semibold">
+            Date
+          </Label>
+          <Input
+            id="date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="ba-no" className="font-semibold">
+            BA No.
+          </Label>
+          <Input
+            id="ba-no"
+            value={baNo}
+            onChange={(e) => setBaNo(e.target.value)}
+            placeholder="Enter BA No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="pt-no" className="font-semibold">
+            P.T. No.
+          </Label>
+          <Input
+            id="pt-no"
+            value={ptNo}
+            onChange={(e) => setPtNo(e.target.value)}
+            placeholder="Enter P.T. No."
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="section" className="font-semibold">
+            Section
+          </Label>
+          <Input
+            id="section"
+            value={section}
+            onChange={(e) => setSection(e.target.value)}
+            placeholder="Enter Section"
+          />
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="text-sm">
-          1. The following overhauled instruments of ICV-BMP-II Tank BA No{" "}
-          <Input
-            value={tankBANo}
-            onChange={(e) => setTankBANo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />{" "}
-          & overhauled P T No{" "}
-          <Input
-            value={vehicleNo}
-            onChange={(e) => setVehicleNo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />{" "}
-          (vehicle no.) Sec{" "}
-          <Input
-            value={sec}
-            onChange={(e) => setSec(e.target.value)}
-            className="inline-block w-32 mx-1"
-          />{" "}
-          are fwd herewith.
-        </div>
-      </div>
-
+      {/* Editable Table */}
       <div className="border rounded-lg overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-12">SR</TableHead>
-              <TableHead className="w-20">OHS No</TableHead>
-              <TableHead className="w-32">PART NO</TableHead>
+              <TableHead className="w-16">Sr No.</TableHead>
+              <TableHead className="w-32">OHS PART NO.</TableHead>
+              <TableHead className="w-28">DATE</TableHead>
               <TableHead>INSTRUMENTS</TableHead>
-              <TableHead className="w-16">QTY</TableHead>
-              <TableHead className="w-24">REGD NO</TableHead>
-              <TableHead className="w-32">REMARK</TableHead>
+              <TableHead className="w-20">QTY</TableHead>
+              <TableHead className="w-24">AVAILABLE</TableHead>
+              <TableHead className="w-20">DEFI</TableHead>
+              <TableHead className="w-28">REGD NO.</TableHead>
+              <TableHead className="w-32">QA REMARK</TableHead>
               <TableHead className="w-12"></TableHead>
             </TableRow>
           </TableHeader>
@@ -150,15 +178,17 @@ export function ARMTInterOfficeNote() {
                 <TableCell>{row.srNo}</TableCell>
                 <TableCell>
                   <Input
-                    value={row.ohsNo}
-                    onChange={(e) => updateRow(row.id, "ohsNo", e.target.value)}
+                    value={row.ohsPartNo}
+                    onChange={(e) => updateRow(row.id, "ohsPartNo", e.target.value)}
                     className="w-full"
+                    placeholder="-"
                   />
                 </TableCell>
                 <TableCell>
                   <Input
-                    value={row.partNo}
-                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
+                    type="date"
+                    value={row.date}
+                    onChange={(e) => updateRow(row.id, "date", e.target.value)}
                     className="w-full"
                   />
                 </TableCell>
@@ -167,6 +197,7 @@ export function ARMTInterOfficeNote() {
                     value={row.instruments}
                     onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
                     className="w-full"
+                    placeholder="-"
                   />
                 </TableCell>
                 <TableCell>
@@ -174,6 +205,23 @@ export function ARMTInterOfficeNote() {
                     value={row.qty}
                     onChange={(e) => updateRow(row.id, "qty", e.target.value)}
                     className="w-full"
+                    placeholder="-"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.available}
+                    onChange={(e) => updateRow(row.id, "available", e.target.value)}
+                    className="w-full"
+                    placeholder="-"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input
+                    value={row.defi}
+                    onChange={(e) => updateRow(row.id, "defi", e.target.value)}
+                    className="w-full"
+                    placeholder="-"
                   />
                 </TableCell>
                 <TableCell>
@@ -181,14 +229,22 @@ export function ARMTInterOfficeNote() {
                     value={row.regdNo}
                     onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
                     className="w-full"
+                    placeholder="-"
                   />
                 </TableCell>
                 <TableCell>
-                  <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
+                  <Select
+                    value={row.qaRemark}
+                    onValueChange={(value) => updateRow(row.id, "qaRemark", value)}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="approve">Approve</SelectItem>
+                      <SelectItem value="reject">Reject</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </TableCell>
                 <TableCell>
                   <Button
@@ -211,7 +267,7 @@ export function ARMTInterOfficeNote() {
         Add Row
       </Button>
 
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-end gap-3 pt-4">
         <Button onClick={handleSendToApproval} size="lg">
           Send to Approval
         </Button>
@@ -219,140 +275,10 @@ export function ARMTInterOfficeNote() {
     </div>
   );
 
-  // Render CMT Tank format
+  // Render CMT Tank format (keeping original for other tank type)
   const renderCMTFormat = () => (
-    <div className="space-y-6">
-      <div className="text-center space-y-4">
-        <div className="font-bold text-lg">ARMT SECTION</div>
-        <div className="flex justify-between items-start">
-          <div className="text-left">142/TS/CMT/ARMT</div>
-          <div className="text-right space-y-1">
-            <div className="flex gap-2 items-center justify-end">
-              <Label>Passport Ser No :</Label>
-              <Input
-                value={passportSerNo}
-                onChange={(e) => setPassportSerNo(e.target.value)}
-                className="w-40"
-              />
-            </div>
-            <div className="flex gap-2 items-center justify-end">
-              <Label>Date</Label>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-40"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="font-bold text-base underline">
-          FORWARDING TS ARMT OF TANK CMT
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <div className="text-sm">
-          1. The following overhauled instruments of CMT Tank BA No{" "}
-          <Input
-            value={tankBANo}
-            onChange={(e) => setTankBANo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />{" "}
-          overhauled CMT No.{" "}
-          <Input
-            value={cmtNo}
-            onChange={(e) => setCmtNo(e.target.value)}
-            className="inline-block w-48 mx-1"
-          />{" "}
-          Sec{" "}
-          <Input
-            value={sec}
-            onChange={(e) => setSec(e.target.value)}
-            className="inline-block w-32 mx-1"
-          />{" "}
-          are fwd herewith.
-        </div>
-      </div>
-
-      <div className="border rounded-lg overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-16">SR NO</TableHead>
-              <TableHead className="w-32">PART NO</TableHead>
-              <TableHead>INSTRUMENTS</TableHead>
-              <TableHead className="w-16">QTY</TableHead>
-              <TableHead className="w-24">REGD NO</TableHead>
-              <TableHead className="w-32">REMARK</TableHead>
-              <TableHead className="w-12"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.srNo}</TableCell>
-                <TableCell>
-                  <Input
-                    value={row.partNo}
-                    onChange={(e) => updateRow(row.id, "partNo", e.target.value)}
-                    className="w-full"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    value={row.instruments}
-                    onChange={(e) => updateRow(row.id, "instruments", e.target.value)}
-                    className="w-full"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    value={row.qty}
-                    onChange={(e) => updateRow(row.id, "qty", e.target.value)}
-                    className="w-full"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    value={row.regdNo}
-                    onChange={(e) => updateRow(row.id, "regdNo", e.target.value)}
-                    className="w-full"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Input
-                    value={row.remark}
-                    onChange={(e) => updateRow(row.id, "remark", e.target.value)}
-                    className="w-full"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteRow(row.id)}
-                    disabled={rows.length === 1}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-
-      <Button onClick={addRow} variant="outline" size="sm">
-        <Plus className="h-4 w-4 mr-2" />
-        Add Row
-      </Button>
-
-      <div className="flex justify-end pt-4">
-        <Button onClick={handleSendToApproval} size="lg">
-          Send to Approval
-        </Button>
-      </div>
+    <div className="text-center text-muted-foreground py-8">
+      Format for CMT TANK coming soon...
     </div>
   );
 
